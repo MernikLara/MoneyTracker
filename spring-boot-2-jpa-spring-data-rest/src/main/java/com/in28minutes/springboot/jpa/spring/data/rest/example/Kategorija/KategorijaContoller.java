@@ -9,6 +9,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path="api/v1/kategorija")
+@CrossOrigin(origins = "*")
 public class KategorijaContoller {
 
     private final KategorijaService kategorijaService;
@@ -37,9 +38,13 @@ public class KategorijaContoller {
     }
 
     @PutMapping(path="{kategorijaId}")
-    public void updateKategorija(@PathVariable("userId") Long kategorijaId, @RequestParam(required = false) String name){
+    public void updateKategorija(@PathVariable("kategorijaId") Long kategorijaId, @RequestParam(required = false) String name){
         this.kategorijaService.updateKategorija(kategorijaId, name);
     }
 
+    @PutMapping(path="/limit/{kategorijaId}")
+    public void updateKategorija(@PathVariable("kategorijaId") Long kategorijaId, @RequestParam(required = false) Long limita){
+        this.kategorijaService.updateKategorijalimit(kategorijaId, limita);
+    }
 
 }

@@ -8,6 +8,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="api/v1/racun")
+@CrossOrigin(origins = "*")
 public class RacunController {
 
     private final RacunService racunService;

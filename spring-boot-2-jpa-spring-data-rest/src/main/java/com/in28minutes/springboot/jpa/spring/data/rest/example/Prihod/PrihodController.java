@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path="api/v1/prihod")
+@CrossOrigin(origins = "*")
 public class PrihodController {
 
 

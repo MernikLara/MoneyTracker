@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path="api/v1/odhod")
+@CrossOrigin(origins = "*")
 public class OdhodController {
     private final OdhodService odhodService;
 

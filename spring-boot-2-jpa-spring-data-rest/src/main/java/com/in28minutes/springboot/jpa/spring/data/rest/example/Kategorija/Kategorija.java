@@ -18,36 +18,50 @@ public class Kategorija {
 
     private Long userId;
 
+    private Long limita;
+
+    //true = prihod :)
+    //false = odhod :(
+    private boolean tip;
+
     @OneToMany(mappedBy = "Kategorijaidprihod")
     private List<Prihod> prihodList;
 
     @OneToMany(mappedBy = "Kategorijaidodhod")
     private List<Odhod> odhodList;
 
-    public Kategorija(Long id, String name, Long userId, List<Prihod> prihodList, List<Odhod> odhodList) {
+    public Kategorija(Long id, String name, Long userId, Long limita, boolean tip , List<Prihod> prihodList, List<Odhod> odhodList) {
         this.id = id;
         this.name = name;
         this.userId = userId;
+        this.limita = limita;
+        this.tip = tip;
         this.prihodList = prihodList;
         this.odhodList = odhodList;
     }
 
 
-    public Kategorija(String name,Long userId, List<Prihod> prihodList, List<Odhod> odhodList) {
+    public Kategorija(String name,Long userId, Long limita, boolean tip, List<Prihod> prihodList, List<Odhod> odhodList) {
         this.name = name;
         this.userId = userId;
+        this.limita = limita;
+        this.tip = tip;
         this.prihodList = prihodList;
         this.odhodList = odhodList;
     }
 
-    public Kategorija(Long id, String name,Long userId) {
+    public Kategorija(Long id, String name, Long limita, boolean tip ,Long userId) {
         this.id = id;
         this.name = name;
+        this.limita = limita;
+        this.tip = tip;
         this.userId = userId;
     }
 
-    public Kategorija(String name,Long userId) {
+    public Kategorija(String name,Long limita, boolean tip,Long userId) {
         this.name = name;
+        this.limita = limita;
+        this.tip = tip;
         this.userId = userId;
     }
 
@@ -87,11 +101,38 @@ public class Kategorija {
         this.odhodList = odhodList;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Long getLimita() {
+        return limita;
+    }
+
+    public void setLimita(Long limit) {
+        this.limita = limit;
+    }
+
+    public boolean isTip() {
+        return tip;
+    }
+
+    public void setTip(boolean tip) {
+        this.tip = tip;
+    }
+
     @Override
     public String toString() {
         return "Kategorija{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", userId=" + userId +
+                ", limita=" + limita +
+                ", tip=" + tip +
                 ", prihodList=" + prihodList +
                 ", odhodList=" + odhodList +
                 '}';

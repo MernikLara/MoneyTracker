@@ -53,7 +53,19 @@ public class KategorijaService {
         }else{
             throw new IllegalStateException("Neveljaven vnos idk");
         }
-
     }
+
+    @Transactional
+    public void updateKategorijalimit(Long kategorijaId, Long limita){
+        Kategorija kategorija = kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("Kategorija s id: " + kategorijaId + " ne obstaja.") );
+
+        if( !Objects.equals(kategorija.getLimita(), limita)){
+            kategorija.setLimita(limita);
+        }else{
+            throw new IllegalStateException("Neveljaven vnos idk");
+        }
+    }
+
+
 
 }

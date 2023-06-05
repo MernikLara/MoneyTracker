@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path="api/v1/user")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserService userService;
