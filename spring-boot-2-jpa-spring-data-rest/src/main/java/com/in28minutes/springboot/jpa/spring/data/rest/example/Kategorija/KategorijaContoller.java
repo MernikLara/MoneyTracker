@@ -1,0 +1,45 @@
+package com.in28minutes.springboot.jpa.spring.data.rest.example.Kategorija;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
+
+@RestController
+@RequestMapping(path="api/v1/kategorija")
+public class KategorijaContoller {
+
+    private final KategorijaService kategorijaService;
+
+    @Autowired
+    public KategorijaContoller(KategorijaService kategorijaService){
+        this.kategorijaService = kategorijaService;
+    }
+
+    @GetMapping
+    public List<Kategorija> getall(){
+        return kategorijaService.getVsi();
+    }
+
+    @GetMapping(path={"{kategorijaId}"})
+    public Optional<Kategorija> getbyId(@PathVariable("kategorijaId") Long kategorijaId) {return this.kategorijaService.getIdKategorija(kategorijaId);}
+
+    @PostMapping
+    public void addKategorija(@RequestBody Kategorija kategorija){
+        this.kategorijaService.addKategorija(kategorija);
+    }
+
+    @DeleteMapping(path={"kategorijaId"})
+    public void deleteKategorija(@PathVariable("kategorijaId") Long kategorijaId){
+        this.kategorijaService.deleteKategorija(kategorijaId);
+    }
+
+    @PutMapping(path="{kategorijaId}")
+    public void updateKategorija(@PathVariable("userId") Long kategorijaId, @RequestParam(required = false) String name){
+        this.kategorijaService.updateKategorija(kategorijaId, name);
+    }
+
+
+}
