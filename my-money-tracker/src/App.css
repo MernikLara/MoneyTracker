@@ -1,0 +1,496 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.Overviewincome {
+ background-color: rgb(21, 216, 21);
+ text-align: center;
+}
+
+.Overviewexpenditure {
+  background-color:rgb(233, 10, 10);
+  text-align: center;
+}
+
+.Overviewbtn {
+  background-color: rgb(0, 255, 64);
+  text-align: center;
+  text-shadow: #282c34;
+  color: white;
+}
+
+.CTransactionsul {
+ list-style-type: square;
+}
+
+.CategoryListContainer {
+  font-size: medium;
+  min-width: 100px;
+  max-width: 300px;
+  min-height: 100px;
+  max-height: 300px;
+}
+
+
+.Overviewbtn {
+  background-color: #13aa52;
+  border: 1px solid #13aa52;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, .1) 0 2px 4px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-family: "Akzidenz Grotesk BQ Medium", -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  outline: none;
+  outline: 0;
+  padding: 10px 25px;
+  text-align: center;
+  transform: translateY(0);
+  transition: transform 150ms, box-shadow 150ms;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.Overviewbtn:hover {
+  box-shadow: rgba(0, 0, 0, .15) 0 3px 9px 0;
+  transform: translateY(-2px);
+}
+
+@media (min-width: 768px) {
+  .Overviewbtn {
+    padding: 10px 30px;
+  }
+}
+
+.Navbtn {
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: #27ae60;
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,-apple-system,system-ui,"Segoe UI",Helvetica,Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.5;
+  outline: none;
+  overflow: hidden;
+  padding: 13px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.Navbtn:hover {
+  background-color: #1e8449;
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+.Navbtn:active {
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+.Navbtn:hover {
+  box-shadow: rgba(39, 174, 96, .2) 0 6px 12px;
+}
+
+
+/* ".inherited-styles-for-exported-element" is a generated class for the inherited styles of the exported element, feel free to rename it. */
+
+.inherited-styles-for-exported-element {
+  color: #333;
+  font-family: "CerebriSans-Regular", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  font-size: 100%;
+}
+
+footer {
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: #1e8449;
+  background-image: none;
+  background-origin: padding-box;
+  background-position: 0 0;
+  background-repeat: repeat;
+  background-size: auto;
+  box-sizing: border-box;
+  left: 0;
+  padding: 10% 7%;
+  position: absolute;
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  footer {
+    padding: 5rem 3rem;
+    font-size: Large;
+  }
+}
+
+.inner {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  max-width: 60em;
+}
+
+@media screen and (min-width: 768px) {
+  .inner {
+    flex-direction: row;
+  }
+}
+
+.inner ul {
+  list-style: none;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.inner a {
+  color: rgba(0, 0, 0, .5);
+  text-decoration: none currentcolor solid;
+}
+
+.inner li {
+  color: #afb2b8;
+  margin-bottom: .5em;
+}
+
+@media screen and (min-width: 768px) {
+  .inner ul {
+    flex: 1;
+    margin: 0 2em;
+  }
+}
+
+.inner ul p {
+  color: #333;
+  margin-top: 0;
+}
+
+.inner>:first-child {
+  margin-bottom: 1.5em;
+  margin-right: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .inner>:first-child {
+    display: block;
+    margin-right: 3em;
+    text-align: center;
+  }
+}
+
+.inner>:first-child img {
+  width: 40px;
+}
+
+.inner>:first-child p {
+  color: rgba(0, 0, 0, .5);
+  font-size: .7em;
+  margin-bottom: 0;
+}
+
+.inner a:hover {
+  text-decoration: underline currentcolor solid;
+}
+
+@media screen and (min-width: 768px) {
+  .inner>:first-child img {
+    width: 70px;
+  }
+}
+
+
+.button {
+  border-radius: 50px;
+  box-shadow: rgba(0, 12, 32, .04) 0 0 1px 0, rgba(10, 31, 68, .1) 0 3px 4px 0;
+  display: inline-block;
+  text-decoration: none currentcolor solid;
+  transition: all 250ms ease-in-out;
+  will-change: transform;
+}
+
+.buy-button {
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: #2cbc63;
+  background-image: none;
+  background-origin: padding-box;
+  background-position: 0 0;
+  background-repeat: repeat;
+  background-size: auto;
+  border: none;
+  border-image: none 100% 1 0 stretch;
+  color: #000;
+}
+
+.logo-img {
+  margin-top: -3px;
+  vertical-align: middle;
+}
+
+.demo-btn {
+  cursor: pointer;
+  transition: all 200ms;
+}
+
+.fixed-header {
+  align-items: center;
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: #1e8449;
+  background-image: none;
+  background-origin: padding-box;
+  background-position: 0 0;
+  background-repeat: repeat;
+  background-size: auto;
+  box-shadow: rgba(148, 148, 148, .3) 0 2px 6px;
+  box-sizing: border-box;
+  display: flex;
+  left: 0;
+  max-width: initial;
+  padding: 0 7%;
+  position: fixed;
+  top: 0;
+  transition: all 250ms;
+  width: 100%;
+  z-index: 9;
+}
+
+@media screen and (min-width: 768px) {
+  .fixed-header {
+    padding: 0 3%;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .fixed-header {
+    padding: 0 10%;
+  }
+}
+
+.fixed-header a {
+  display: initial;
+}
+
+.header-buttons-wrapper>a {
+  color: #555;
+  font-family: "CerebriSans-Bold", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+  margin-right: 1.5em;
+  text-decoration: none currentcolor solid;
+}
+
+.header-buttons-wrapper div {
+  font-family: "CerebriSans-Regular", -apple-system, BlinkMacSystemFont, "Roboto", sans-serif;
+}
+
+.button:hover {
+  transform: scale(1.05);
+}
+
+.demo-btn:hover {
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: #27e90d;
+  background-image: none;
+  background-origin: padding-box;
+  background-position: 0 0;
+  background-repeat: repeat;
+  background-size: auto;
+}
+
+.fixed-header.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.fixed-header .button {
+  font-size: 14px;
+  height: 35px;
+  line-height: 35px;
+  padding: 0 25px;
+}
+
+.fixed-header .header-logo-wrapper {
+  align-items: center;
+  display: flex;
+}
+
+.fixed-header .logo-img {
+  height: 30px;
+  margin-right: .5em;
+}
+
+.fixed-header .header-buttons-wrapper {
+  margin-left: auto;
+  margin-top: -1px;
+}
+
+.fixed-header .button {
+  margin-top: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .fixed-header .button {
+    font-size: 15px;
+    height: 40px;
+    line-height: 40px;
+  }
+}
+
+.svg-inline--fa.fa-w-18 {
+  width: 1.125em;
+}
+
+svg:not(:root).svg-inline--fa {
+  overflow: visible;
+}
+
+.fixed-header h3.logo {
+  font-size: 20px;
+  margin: 1em 0;
+}
+
+.fixed-header .buy-button>:not(svg), .fixed-header a:not([href*=gum]) {
+  display: none;
+}
+
+.fixed-header .buy-button>svg {
+  margin-right: 0;
+}
+
+@media screen and (min-width: 768px) {
+
+  .fixed-header .buy-button>:not(svg),   .fixed-header a:not([href*=gum]) {
+    display: initial;
+  }
+
+  .fixed-header .buy-button>svg {
+    margin-right: .5em;
+  }
+}
+
+.header-buttons-wrapper>a:hover {
+  color: #000;
+}
+
+.header-buttons-wrapper a:last-child {
+  margin-right: 0;
+}
+
+.fixed-header a:last-child .button {
+  margin-left: 10px;
+  margin-right: 0;
+}
+
+.fixed-header .header-buttons-wrapper a.demo-btn {
+  background-attachment: scroll;
+  background-clip: border-box;
+  background-color: transparent;
+  background-image: none;
+  background-origin: padding-box;
+  background-position: 0 0;
+  background-repeat: repeat;
+  background-size: auto;
+  display: none;
+}
+
+@media screen and (min-width: 1024px) {
+  .fixed-header .header-buttons-wrapper a.demo-btn {
+    display: inline-block;
+  }
+}
+
+.fixed-header .header-buttons-wrapper a.demo-btn:hover {
+  transform: none;
+}
+
+.BudgetContainer{
+  justify-content: center;
+  text-align: center;
+  font-size: Large;
+  min-width: 300px;
+  max-width: 700px;
+  min-height: 300px;
+  max-height: 700px;
+  background-color: #27ae60;
+}
+
+.HomeContainer{
+    justify-content: center;
+    text-align: center;
+    font-size: Large;
+    min-width: 300px;
+    max-width: 700px;
+    min-height: 300px;
+    max-height: 700px;
+    background-color: #27ae60;
+}
+
+.MainHome{
+  justify-content: center;
+  text-align: center;
+  min-width: 500px;
+    max-width: 1000px;
+    min-height: 500px;
+    max-height: 1000px;
+}
+
+
+
+
+
