@@ -46,4 +46,16 @@ public class UserController {
         this.userService.updateUser(userId,email,password,name, surname);
     }
 
+    @PostMapping(path= "/login")
+    public void Login(@RequestBody User user){
+      userService.LoginUser(user);
+
+    }
+
+    @PostMapping(path = "/register")
+    public void Register(@RequestBody User user){
+        userService.RegisterUser(user);
+    }
+
+
 }

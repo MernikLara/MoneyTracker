@@ -61,4 +61,34 @@ public class UserService {
         }
 
     }
+
+
+    public void RegisterUser(User user) {
+        Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
+
+
+        if(userOptional.isPresent()){
+            throw new IllegalStateException("Email je že uporabljen");
+        }
+
+
+        userRepository.save(user);
+    }
+
+
+    public String LoginUser(User user) {
+        Optional<User> userOptionalE = userRepository.findUserByEmail(user.getEmail());
+        Optional<User> userOptionalP = userRepository.findUserByPassword(user.getPassword());
+        if(userOptionalE.isPresent()){
+            if(userOptionalP.isPresent()){
+                return("Prijava uspešna");
+
+            }else{
+                throw new IllegalStateException("Wrong email or password");
+            }
+        }else{
+            throw new IllegalStateException("Wrong email or password");
+        }
+    }
+
 }
