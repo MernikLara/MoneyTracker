@@ -1,5 +1,7 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Kategorija;
 
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.OdhodRepository;
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.PrihodRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,10 +13,14 @@ import java.util.Optional;
 @Service
 public class KategorijaService {
     private final KategorijaRepository kategorijaRepository;
+    private final PrihodRepository prihodRepository;
+    private final OdhodRepository odhodRepository;
 
     @Autowired
-    public KategorijaService(KategorijaRepository kategorijaRepository) {
+    public KategorijaService(KategorijaRepository kategorijaRepository, PrihodRepository prihodRepository, OdhodRepository odhodRepository) {
         this.kategorijaRepository = kategorijaRepository;
+        this.prihodRepository = prihodRepository;
+        this.odhodRepository = odhodRepository;
     }
 
     public List<Kategorija> getVsi() {
@@ -67,5 +73,18 @@ public class KategorijaService {
     }
 
 
+    public void addPrihod(Long kategorijaId, Long prihodId) {
+       Kategorija kategorija = kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("User s id: " +kategorijaId + " ne obstaja.") );
 
+        kategorija.dodajPrihod(prihodRepository.findById(prihodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " + prihodId + " ne obstaja.") ));
+
+    }
+
+    public void addOdhod(Long kategorijaId, Long odhodId) {
+
+        Kategorija kategorija = kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("User s id: " +kategorijaId + " ne obstaja.") );
+
+        kategorija.dodajOdhod(odhodRepository.findById(odhodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " + odhodId + " ne obstaja.") ));
+
+    }
 }

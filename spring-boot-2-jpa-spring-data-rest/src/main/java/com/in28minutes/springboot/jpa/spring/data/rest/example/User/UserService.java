@@ -1,6 +1,7 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.User;
 
-import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.Prihod;
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.OdhodRepository;
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.PrihodRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,15 @@ import java.util.Optional;
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final PrihodRepository prihodRepository;
+    private final OdhodRepository odhodRepository;
+
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, PrihodRepository prihodRepository, OdhodRepository odhodRepository) {
         this.userRepository = userRepository;
+        this.prihodRepository = prihodRepository;
+        this.odhodRepository = odhodRepository;
     }
 
     public List<User> getVsi(){return userRepository.findAll();}
@@ -90,5 +96,18 @@ public class UserService {
             throw new IllegalStateException("Wrong email or password");
         }
     }
+
+    public void addPrihod(Long userId, Long prihodId){
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalStateException("User s id: " + userId + " ne obstaja.") );
+
+        user.dodajPrihod(prihodRepository.findById(prihodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " + prihodId + " ne obstaja.") ));
+    }
+
+    public void addOdhod(Long userId, Long odhodId){
+        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalStateException("User s id: " + userId + " ne obstaja.") );
+
+       user.dodajOdhod(odhodRepository.findById(odhodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " +odhodId + " ne obstaja.")));
+    }
+
 
 }

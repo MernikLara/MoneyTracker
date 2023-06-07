@@ -1,7 +1,8 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -16,9 +17,11 @@ public class PrihodController {
 
 private final PrihodService prihodService;
 
+
     @Autowired
     public PrihodController(PrihodService prihodService) {
         this.prihodService = prihodService;
+
     }
 
     @GetMapping
@@ -36,6 +39,7 @@ private final PrihodService prihodService;
     public void addPrihod(@RequestBody Prihod prihod) {
 
         this.prihodService.addPrihod(prihod);
+
     }
 
     @DeleteMapping(
@@ -51,5 +55,7 @@ private final PrihodService prihodService;
     public void updatePrihod(@PathVariable("prihodId") Long prihodId, @RequestParam(required = false) String name, @RequestParam(required = false) int value, @RequestParam(required = false) LocalDate date) {
         this.prihodService.updatePrihod(prihodId, name, value, date);
     }
+
+
 
 }

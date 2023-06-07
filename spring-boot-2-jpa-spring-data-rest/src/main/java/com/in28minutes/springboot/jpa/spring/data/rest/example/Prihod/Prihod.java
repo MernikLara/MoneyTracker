@@ -13,7 +13,7 @@ public class Prihod {
             strategy = GenerationType.AUTO
     )
     private Long id;
-    private String name;
+    private static String name;
     private int value;
     private LocalDate date;
     private int Useridprihod;
@@ -21,7 +21,7 @@ public class Prihod {
 
     @ManyToOne
     @JoinColumn(name = "Userid")
-    private User user;
+    private static User user;
 
 
     public Prihod(Long id, String name, int value, LocalDate date) {
@@ -48,7 +48,7 @@ public class Prihod {
         this.id = id;
     }
 
-    public String getName() {
+    public static String getName() {
         return name;
     }
 
@@ -67,6 +67,17 @@ public class Prihod {
     public LocalDate getDate() {
         return date;
     }
+
+    public static User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+
 
     public void setDate(LocalDate date) {
         this.date = date;

@@ -47,4 +47,14 @@ public class KategorijaContoller {
         this.kategorijaService.updateKategorijalimit(kategorijaId, limita);
     }
 
+    @PostMapping(path = "/addprihod/{kategorijaId}/{prihodId}")
+    public void addPrihod(@PathVariable("kategorijaId") Long kategorijaId,@PathVariable("prihodId") Long prihodId){
+        kategorijaService.addPrihod(kategorijaId,prihodId);
+    }
+
+    @PostMapping(path = "/addodhod/{kategorijaId}/{odhodId}")
+    public void addOdhod(@PathVariable("kategorijaId") Long kategorijaId,@PathVariable("odhodId") Long odhodId) {
+        kategorijaService.addOdhod(kategorijaId, odhodId);
+
+    }
 }

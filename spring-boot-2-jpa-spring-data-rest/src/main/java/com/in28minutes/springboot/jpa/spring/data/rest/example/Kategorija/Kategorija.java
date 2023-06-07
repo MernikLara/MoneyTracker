@@ -68,6 +68,15 @@ public class Kategorija {
     public Kategorija() {
     }
 
+    public void dodajPrihod(Prihod prihod){
+        prihodList.add(prihod);
+    }
+
+    public void dodajOdhod(Odhod odhod){
+        odhodList.add(odhod);
+    }
+
+
 
     public Long getId() {
         return id;

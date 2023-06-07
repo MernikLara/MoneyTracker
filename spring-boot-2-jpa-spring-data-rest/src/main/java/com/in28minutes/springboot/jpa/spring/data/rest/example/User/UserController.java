@@ -51,10 +51,20 @@ public class UserController {
       userService.LoginUser(user);
 
     }
-
     @PostMapping(path = "/register")
     public void Register(@RequestBody User user){
         userService.RegisterUser(user);
+    }
+
+    @PostMapping(path = "/addprihod/{userId}/{prihodId}")
+    public void addPrihod(@PathVariable("userId") Long userId,@PathVariable("prihodId") Long prihodId){
+        userService.addPrihod(userId,prihodId);
+    }
+
+    @PostMapping(path = "/addodhod/{userId}/{odhodId}")
+    public void addOdhod(@PathVariable("userId") Long userId,@PathVariable("odhodId") Long odhodId) {
+        userService.addOdhod(userId, odhodId);
+
     }
 
 
