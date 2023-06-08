@@ -1,0 +1,31 @@
+MoneyTrack
+
+Sledenje  financam
+
+Leto izdelave: 2023
+
+Avtorji:
+Jaša Mikič
+Lara Mernik
+Nik Jakopin
+
+Domača stran: https://hodimovgostilne.pro
+
+Koda: https://github.com/MernikLara/MoneyTracker
+
+Kategorizacija: spletna aplikacija, predstavitvena spletna stran
+
+Oznake: ReactJS, MySql, GitHub, Springboot, REST
+
+Opis:
+
+MoneyTrack je inovativna spletna aplikacija, ki uporabniku omogoča sledenje prihodkov in odhodkov na preprost in 
+učinkovit način. S to aplikacijo lahko enostavno nadzorujete svoje finance ter sledite svojemu mesečnemu proračunu.
+
+Z MoneyTrack-om lahko z lahkoto beležite vse vaše prihodke, ne glede na njihov vir, kot so plača, poslovni dohodek ali dodatni prihodki. 
+Prav tako lahko natančno beležite vse vaše izdatke, kot so stroški hrane, stanovanja, prevoza...
+Aplikacija uporabniku pomaga razumeti njegovo finančno situacijo na bolj vizualen način.
+
+Aplikacija vas obvešča o prekoračitvi proračuna ali približevanju limitov, tako da lahko sprejmete ustrezne ukrepe za boljše upravljanje vaših financ.
+
+MoneyTrack je vaš zanesljiv finančni pomočnik, ki vam pomaga doseči večjo finančno varnost in boljšo kontrolo nad vašimi prihodki ter odhodki.
