@@ -2,6 +2,7 @@ package com.in28minutes.springboot.jpa.spring.data.rest.example.Kategorija;
 
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.OdhodRepository;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.PrihodRepository;
+import com.in28minutes.springboot.jpa.spring.data.rest.example.User.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,8 @@ public class KategorijaService {
     public List<Kategorija> getVsi() {
         return kategorijaRepository.findAll();
     }
+
+
 
     public Optional<Kategorija> getIdKategorija(Long kategorijaId) {
         boolean obstaja = kategorijaRepository.existsById(kategorijaId);
@@ -86,5 +89,13 @@ public class KategorijaService {
 
         kategorija.dodajOdhod(odhodRepository.findById(odhodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " + odhodId + " ne obstaja.") ));
 
+    }
+
+    public Optional<Kategorija> getIdUser(Long UserId) {
+        boolean obstaja = kategorijaRepository.existsById(UserId);
+        if (!obstaja) {
+            throw new IllegalStateException("Kategorija s id: " + UserId + " ne obstaja.");
+        }
+        return kategorijaRepository.findById(UserId);
     }
 }

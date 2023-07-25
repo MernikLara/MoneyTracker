@@ -13,7 +13,9 @@ public class Odhod {
     private long Id;
     private String name;
     private int value;
-    private int Useridodhod;
+
+
+    public int Useridodhod;
     private int Kategorijaidodhod;
 
     @ManyToOne
@@ -25,6 +27,15 @@ public class Odhod {
         Id = id;
         this.name = name;
         this.value = value;
+    }
+
+    public Odhod(long id, String name, int value, int useridodhod, int kategorijaidodhod, User user) {
+        Id = id;
+        this.name = name;
+        this.value = value;
+        Useridodhod = useridodhod;
+        Kategorijaidodhod = kategorijaidodhod;
+        this.user = user;
     }
 
     public Odhod(String name, int value) {
@@ -41,6 +52,30 @@ public class Odhod {
 
     public void setId(long id) {
         Id = id;
+    }
+
+    public int getUseridodhod() {
+        return Useridodhod;
+    }
+
+    public void setUseridodhod(int useridodhod) {
+        this.Useridodhod = useridodhod;
+    }
+
+    public int getKategorijaidodhod() {
+        return Kategorijaidodhod;
+    }
+
+    public void setKategorijaidodhod(int kategorijaidodhod) {
+        Kategorijaidodhod = kategorijaidodhod;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getName() {

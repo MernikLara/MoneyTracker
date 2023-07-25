@@ -1,5 +1,6 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod;
 
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Kategorija.Kategorija;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.Prihod;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,13 @@ public class OdhodService {
             throw new IllegalStateException("Neveljaven vnos idk");
         }
 
+    }
+
+    public Optional<Odhod> getIdUser(Long UserId) {
+        Optional<Odhod> obstaja = odhodRepository.findOdhodsByUser(UserId);
+        if (!obstaja.isPresent()) {
+            throw new IllegalStateException("User s id: " + UserId + " ne obstaja.");
+        }
+        return odhodRepository.findOdhodsByUser(UserId);
     }
 }

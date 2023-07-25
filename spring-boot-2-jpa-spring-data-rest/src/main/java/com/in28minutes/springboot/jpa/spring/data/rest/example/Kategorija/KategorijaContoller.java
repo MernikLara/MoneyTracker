@@ -57,4 +57,10 @@ public class KategorijaContoller {
         kategorijaService.addOdhod(kategorijaId, odhodId);
 
     }
+
+    @GetMapping(path="/getbyuserid/{userId}")
+    public void getUserId(@PathVariable("userId") Long UserId){
+        this.kategorijaService.getIdUser(UserId);
+    }
+
 }

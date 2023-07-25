@@ -21,7 +21,7 @@ public class Prihod {
 
     @ManyToOne
     @JoinColumn(name = "Userid")
-    private static User user;
+    private User user;
 
 
     public Prihod(Long id, String name, int value, LocalDate date) {
@@ -68,7 +68,7 @@ public class Prihod {
         return date;
     }
 
-    public static User getUser() {
+    public User getUser() {
         return user;
     }
 

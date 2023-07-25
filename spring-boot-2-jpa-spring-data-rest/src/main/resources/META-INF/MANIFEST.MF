@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: com.in28minutes.springboot.jpa.spring.data.rest.example.Spri
+ ngBoot2JPAWithSpringDataRestApplication
+

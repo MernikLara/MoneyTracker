@@ -57,5 +57,8 @@ private final PrihodService prihodService;
     }
 
 
-
+    @GetMapping(path="/getbyuserid/{userId}")
+    public void getUserId(@PathVariable("userId") Long UserId){
+       this.prihodService.getIdUser(UserId);
+    }
 }
