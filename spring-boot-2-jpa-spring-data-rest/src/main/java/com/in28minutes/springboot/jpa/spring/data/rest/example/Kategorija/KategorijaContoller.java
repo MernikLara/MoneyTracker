@@ -27,7 +27,7 @@ public class KategorijaContoller {
     @GetMapping(path={"{kategorijaId}"})
     public Optional<Kategorija> getbyId(@PathVariable("kategorijaId") Long kategorijaId) {return this.kategorijaService.getIdKategorija(kategorijaId);}
 
-    @PostMapping
+    @PostMapping(path={"/add"})
     public void addKategorija(@RequestBody Kategorija kategorija){
         this.kategorijaService.addKategorija(kategorija);
     }

@@ -1,0 +1,40 @@
+.category-container {
+    background-color: #e8f5e9;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .category-box {
+    background-color: #a5d6a7; 
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .transaction {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+  }
+  
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn1 {
+    background-color: #2e7d32; 
+    border: none;
+    margin-top: 10px;
+}
+
+.btn1:hover {
+    background-color: #1b5e20;
+}

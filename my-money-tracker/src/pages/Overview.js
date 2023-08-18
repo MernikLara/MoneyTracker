@@ -6,6 +6,7 @@ import styles from '../App.css'
 import CategoryTransactions from '../components/CategoryTransactions'
 import TransactionsProvider from '../components/TransactionsProvider'
 import TransactionsContext from "../contexts/TransactionsContext";
+import { Link } from 'react-router-dom'
 
 const CategoryType = {
     income: 'income',
@@ -77,98 +78,26 @@ export default function Overview(){
 
 
     return(
-        <div id="PageDiv" className="container">
-            <h2>Overview</h2>
-            <div id="CategoryListContainer" className="card">
-                <button className="Overviewbtn" onClick={() => setshowAddCategoryModal(true)}>Add Catergory</button> <label>Budget: XYZ$ / XYZ$</label><progress value={progress} max={100}></progress>
-                <Modal show={showAddCategoryModal} onHide={() => setshowAddCategoryModal(false)}>
-                    <Form onSubmit={handleSubmit}>
-                        <Modal.Header closeButton>
-                        <Modal.Title>Add Category</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                        <Form.Group className="mb-3" controlId="description">
-                            <Form.Label>Category name:</Form.Label>
-                            <Form.Control ref={NameRef} type="text" required />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="amount">
-                            <Form.Label>Spending Limit:</Form.Label>
-                            <Form.Control
-                            ref={LimitRef}
-                            type="number"
-                            required
-                            min={0}
-                            step={0.01}
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="amount">
-                        <Form.Select defaultValue={SelectedType} ref={selectedRef}>
-                            <option value={CategoryType.income}>Income</option>
-                            <option value={CategoryType.expenditure}>Expenditure</option>
-                        </Form.Select>
-                        </Form.Group>
-                        <div className="d-flex justify-content-end">
-                            <button className="Overviewbtn" type="submit">
-                            Add
-                            </button>
-                        </div>
-                        </Modal.Body>
-                    </Form>
-                </Modal>
-                        {Categories.map(Category => (
-                            <div className="CategoryListContainer" key={Category.id}>
-                                {Category.categoryType === CategoryType.income &&
-                                    <div className="Overviewincome">
-                                        <h4>Category: {Category.name} </h4><br></br><h4> Available: {Category.spendingLimit}$ </h4><p>{Category.id}</p>
-                                        <button className="Overviewbtn" onClick={() => setshowEditModal(true)}>Uredi</button>
-                                        <Modal show={showEditModal} onHide={() => setshowEditModal(false)}>
-                                            <Modal.Header closeButton>
-                                                    <Modal.Title>Uredi Kategorijo</Modal.Title>
-                                            </Modal.Header>
-                                            <Modal.Body>
-                                                    <label>Name</label><input type="text" id="EEditN" ref={EditNRef}/>
-                                                    <br></br>
-                                                    <label>Limit</label><input type="number" ref={EditLRef}/>
-                                            </Modal.Body>
-                                            <Modal.Footer>
-                                                <Button variant="primary" onClick={() => editCategory(Category.id)}>
-                                                    Save changes
-                                                </Button>
-                                            </Modal.Footer>
-                                            </Modal>
-                                            <CategoryTransactions name={Category.name} spendingLimit={Category.spendingLimit} categoryType={Category.categoryType}  />
-                                    </div>
-
-                                }
-                                {Category.categoryType === CategoryType.expenditure &&
-                                    <div className="Overviewexpenditure">
-                                        <h4>Category: {Category.name}</h4><br></br><h4>Spending Limit: {Category.spendingLimit}$</h4><p>{Category.id}</p>
-                                        <p>Spent: 0/{Category.spendingLimit}</p>
-                                        <button className="Overviewbtn" onClick={() => setshowEditModal(true)}>Uredi</button>
-                                            <Modal show={showEditModal} onHide={() => setshowEditModal(false)}>
-                                                <Modal.Header closeButton>
-                                                        <Modal.Title>Uredi Kategorijo</Modal.Title>
-                                                </Modal.Header>
-                                                <Modal.Body>
-                                                        <label>Name</label><input type="text" ref={EditNRef}/>
-                                                        <br></br>
-                                                        <label>Limit</label><input type="number" ref={EditLRef}/>
-                                                </Modal.Body>
-                                                <Modal.Footer>
-                                                    <Button variant="primary" onClick={() => editCategory(Category.id)}>
-                                                        Save changes
-                                                    </Button>
-                                                </Modal.Footer>
-                                                </Modal>
-                                                <TransactionsProvider>
-                                                <CategoryTransactions name={Category.name} spendingLimit={Category.spendingLimit} categoryType={Category.categoryType}/>
-                                                </TransactionsProvider>
-                                    </div>
-                                }
-                            </div>
-                        ))}
-
-            </div>
-        </div>
+        <>
+        <div className='fixed-header'>
+        <ul className="nav nav-pills">
+          <li className="nav-item">
+            <Link to='/pages/Home'>
+              <button className="Navbtn">Home</button>
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to='/pages/Overview'><button className="Navbtn">Overview</button></Link>
+          </li>
+          <li className="nav-item">
+            <Link to='/pages/Budget'><button className="Navbtn">Budgeting</button></Link>
+          </li>
+          <li className="nav-item">
+            <Link to='/pages/AllTransactions'><button className="Navbtn">Transactions</button></Link>
+          </li>
+        </ul>
+      </div>
+       <CategoryTransactions/>
+        </>
     )
 }

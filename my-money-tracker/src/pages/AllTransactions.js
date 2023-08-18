@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../App.css'
 import { propTypes } from "react-bootstrap/esm/Image";
 import TransactionsContext from "../contexts/TransactionsContext";
+import { Link } from 'react-router-dom'
 
 const Cashless = {
     Cash: 'Cash',
@@ -35,6 +36,24 @@ export default function AllTransactions(){
     const [showMoreModal, setShowMoreModal] = useState(false)
     return(
         <div>
+             <div className='fixed-header'>
+                <ul className="nav nav-pills">
+                    <li className="nav-item">
+                    <Link to='/pages/Home'>
+                        <button className="Navbtn">Home</button>
+                    </Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to='/pages/Overview'><button className="Navbtn">Overview</button></Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to='/pages/Budget'><button className="Navbtn">Budgeting</button></Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link to='/pages/AllTransactions'><button className="Navbtn">Transactions</button></Link>
+                    </li>
+                </ul>
+             </div>
             <h2>All Transactions</h2>
             <ul>
             {TransactionList.map(Transaction => (

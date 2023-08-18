@@ -82,17 +82,13 @@ public class UserService {
     }
 
 
-    public String LoginUser(User user) {
-        Optional<User> userOptionalE = userRepository.findUserByEmail(user.getEmail());
-        Optional<User> userOptionalP = userRepository.findUserByPassword(user.getPassword());
-        if(userOptionalE.isPresent()){
-            if(userOptionalP.isPresent()){
-                return("Prijava uspešna");
+    public User LoginUser(User user) {
+        Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
+        if (userOptional.isPresent() && userOptional.get().getPassword().equals(user.getPassword())) {
+            return userOptional.get();
 
-            }else{
-                throw new IllegalStateException("Wrong email or password");
-            }
-        }else{
+        }
+        else{
             throw new IllegalStateException("Wrong email or password");
         }
     }

@@ -1,10 +1,8 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.User;
 
-import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.Prihod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,8 +45,8 @@ public class UserController {
     }
 
     @PostMapping(path= "/login")
-    public void Login(@RequestBody User user){
-      userService.LoginUser(user);
+    public User Login(@RequestBody User user){
+        return userService.LoginUser(user);
 
     }
     @PostMapping(path = "/register")
