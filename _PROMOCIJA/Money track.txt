@@ -9,8 +9,6 @@ Jaša Mikič
 Lara Mernik
 Nik Jakopin
 
-Domača stran: https://hodimovgostilne.pro
-
 Koda: https://github.com/MernikLara/MoneyTracker
 
 Kategorizacija: spletna aplikacija, predstavitvena spletna stran
@@ -18,7 +16,6 @@ Kategorizacija: spletna aplikacija, predstavitvena spletna stran
 Oznake: ReactJS, MySql, GitHub, Springboot, REST
 
 Opis:
-
 MoneyTrack je inovativna spletna aplikacija, ki uporabniku omogoča sledenje prihodkov in odhodkov na preprost in 
 učinkovit način. S to aplikacijo lahko enostavno nadzorujete svoje finance ter sledite svojemu mesečnemu proračunu.
 
