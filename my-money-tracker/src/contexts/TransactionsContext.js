@@ -1,8 +1,12 @@
 import React, { createContext, useContext, useState } from "react";
 
 const TransactionsContext = createContext({
-  TransactionList: [],
-  updateTList: () => {}
+  IncomeList: [],
+  ExpenditureList: [],
+  updateEList: () => {},
+  updateIList: () => {},
+  addIncome:() => {}, 
+  addExpenditure:() => {}
 });
 
 export default TransactionsContext;

@@ -4,6 +4,7 @@ import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.Odhod;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.Prihod;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Racun.Racun;
 import jakarta.persistence.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class User {
     @OneToMany(mappedBy = "Useridprihod")
 
     private List<Prihod> prihodList;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "Useridodhod")
     private List<Odhod> odhodList;
 

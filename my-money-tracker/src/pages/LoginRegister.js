@@ -18,6 +18,8 @@ function LoginRegister() {
     const onHide = () => setShowRegisterModal(false);
     const show = showRegisterModal;
     const navigate = useNavigate();
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
 
 
 
@@ -25,7 +27,11 @@ function LoginRegister() {
         e.preventDefault();
         authenticateUser(Loginemail, Loginpassword);
         if(isLoggedIn === true){
-            navigate('/pages/Home')
+          navigate('/pages/Home')
+        }
+        else {
+          setAlertMessage('Wrong email or password');
+          setShowAlert(true);
         }
     };
 
@@ -45,6 +51,11 @@ function LoginRegister() {
   return (
     <div className="login">
       <h2>Login</h2>
+            {showAlert && 
+                    <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>
+                        {alertMessage}
+                    </Alert>
+                }
       <Form onSubmit={handleLogin}>
         <Form.Group controlId="Email">
           <Form.Label>Email:</Form.Label>

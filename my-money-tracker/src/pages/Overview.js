@@ -7,6 +7,8 @@ import CategoryTransactions from '../components/CategoryTransactions'
 import TransactionsProvider from '../components/TransactionsProvider'
 import TransactionsContext from "../contexts/TransactionsContext";
 import { Link } from 'react-router-dom'
+import CategoryProvider from "../components/CategoryProvider";
+import '../Styles/Categorystyles.css'
 
 const CategoryType = {
     income: 'income',
@@ -40,40 +42,6 @@ export default function Overview(){
     const EditCatid = useState()
     const ok = document.getElementById("EEditN")
 
-    function handleSubmit(e) {
-        e.preventDefault()
-        setSelectedType(selectedRef.current.value)
-        addCategory(NameRef.current.value, LimitRef.current.value, SelectedType)
-        console.log(NameRef.current.value, LimitRef.current.value, SelectedType + "sn tu 1")
-        setshowAddCategoryModal(false)
-    }
-  
-  
-    function addCategory(name, spendingLimit, categoryType) {
-        setCategories((prevCategories) => [
-          ...prevCategories,
-          {
-            id: prevCategories.length + 1,
-            name: name,
-            spendingLimit: parseInt(spendingLimit),
-            categoryType: categoryType
-          }
-        ]);
-        console.log(Categories.length)
-        console.log(ok)
-    }
-    
-    function editCategory(id) {
-        console.log(id-1)
-        const updatedCategories = [...Categories];
-        updatedCategories[id-1].name = EditNRef.current.value;
-        updatedCategories[id-1].spendingLimit = EditLRef.current.value;
-        console.log(updatedCategories[id-1].name, updatedCategories[id-1].spendingLimit)
-        setCategories(updatedCategories);
-      }
-      
-
-
     
 
 
@@ -97,7 +65,13 @@ export default function Overview(){
           </li>
         </ul>
       </div>
+      <CategoryProvider>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
        <CategoryTransactions/>
+       </CategoryProvider>
         </>
     )
 }

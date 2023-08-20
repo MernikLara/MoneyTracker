@@ -1,52 +1,110 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import TransactionsContext from "../contexts/TransactionsContext"
 import PropTypes from 'prop-types';
+import CategoryContext from "../contexts/CategoryContext";
+import "../Styles/TTable.css"
 
-propTypes.CategoryTransactions = {
-    Transaction: PropTypes.shape({
+const CategoryType = {
+    income: 'income',
+    expenditure: 'expenditure'
+}
+
+PropTypes.AlltransactionsTable = {
+    Income: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
         amount: PropTypes.number.isRequired, 
         date: PropTypes.string.isRequired,
-        Beneficiary: PropTypes.string.isRequired,
-        transactionType: PropTypes.oneOf(Object.values(CategoryType)).isRequired,
-        cashCredit: Cashless.isRequired,
         CategoryID: PropTypes.number.isRequired
         }),
+    Expenditure: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        amount: PropTypes.number.isRequired, 
+        CategoryID: PropTypes.number.isRequired
+    }),
+      Category: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        spendingLimit: PropTypes.number.isRequired,
+        categoryType: PropTypes.oneOf(Object.values(CategoryType)).isRequired
+      })
 }
 
 
 export default function AlltransactionsTable(){
-    const { TransactionList, updateTList } = useContext(TransactionsContext) 
-    return(
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Amount</th>
-                        <th>Description</th>
-                        <th>date</th>
-                        <th>Beneficiary</th>
-                        <th>Cash or Credit:</th>
-                    </tr>
-                    {TransactionList.map(Transaction => (
-                        <tr>
-                            <th>{Transaction.CategoryID}</th>
-                            <th>{Transaction.amount}</th>
-                            <th>{Transaction.description}</th>
-                            <th>{Transaction.date}</th>
-                            <th>{Transaction.Beneficiary}</th>
-                            <th>{Transaction.cashCredit}</th>
-                        </tr>
-                    ))}
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+    const { IncomeList, ExpenditureList, updateEList, updateIList } = useContext(TransactionsContext) 
+    console.log(IncomeList)
+    console.log(ExpenditureList)
+    const { CategoryList } = useContext(CategoryContext)
+    const [PCategoryName, setPCategoryName] = useState("");
+    const [PCategoryNumber, setPCategoryNumber] = useState();
+    const CCategory = useState();
+    const [OCategoryName, setOCategoryName] = useState("");
+    const [OCategoryNumber, setOCategoryNumber] = useState();
+    const OCategory = useState();
+
+    const findCategorybyID = (id) => {
+        return CategoryList.find(Category => Category.id === id)
+    }
+    return (
+        <div className="container mt-5"> 
+            <div className="row">
+                <div className="col-md-6">
+                    <h4>Incomes</h4>
+                    <table className="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Array.isArray(IncomeList) && IncomeList.map(Income => {
+                                const categoryID = Income.CategoryID;
+                                const category = findCategorybyID(categoryID);
+                                
+                                return (
+                                    <tr key={Income.id}>
+                                        <td>{category.name}</td>
+                                        <td>{Income.amount}</td>
+                                        <td>{Income.name}</td>
+                                        <td>{Income.date}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+                <div className="col-md-6">
+                    <h4>Expenditures</h4>
+                    <table className="table table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>Category</th>
+                                <th>Amount</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {Array.isArray(ExpenditureList) && ExpenditureList.map(Expenditure => {
+                                const categoryID = Expenditure.CategoryID;
+                                const category = findCategorybyID(categoryID);
+                                
+                                return (
+                                    <tr key={Expenditure.id}>
+                                        <td>{category.name}</td>
+                                        <td>{Expenditure.amount}</td>
+                                        <td>{Expenditure.name}</td>
+                                        <td>{Expenditure.date}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
-    )
-
-
-
+    );
 }

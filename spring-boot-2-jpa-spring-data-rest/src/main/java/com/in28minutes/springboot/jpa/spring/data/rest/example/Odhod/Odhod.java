@@ -70,6 +70,7 @@ public class Odhod {
         Kategorijaidodhod = kategorijaidodhod;
     }
 
+
     public User getUser() {
         return user;
     }

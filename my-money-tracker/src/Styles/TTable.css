@@ -1,0 +1,30 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 10px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+    background-color: #4caf50;
+    color: rgb(4, 126, 0);
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #00c400;
+}
+
+h4 {
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+div {
+    font-family: 'Arial', sans-serif;
+}

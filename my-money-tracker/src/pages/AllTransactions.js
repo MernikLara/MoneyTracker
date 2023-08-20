@@ -6,6 +6,8 @@ import styles from '../App.css'
 import { propTypes } from "react-bootstrap/esm/Image";
 import TransactionsContext from "../contexts/TransactionsContext";
 import { Link } from 'react-router-dom'
+import AlltransactionsTable from "../components/AlltransactionsTable";
+import TransactionsProvider from "../components/TransactionsProvider";
 
 const Cashless = {
     Cash: 'Cash',
@@ -19,16 +21,19 @@ const CategoryType = {
 
 
 propTypes.CategoryTransactions = {
-    Transaction: PropTypes.shape({
+    Income: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
         amount: PropTypes.number.isRequired, 
         date: PropTypes.string.isRequired,
-        Beneficiary: PropTypes.string.isRequired,
-        transactionType: PropTypes.oneOf(Object.values(CategoryType)).isRequired,
-        cashCredit: Cashless.isRequired,
         CategoryID: PropTypes.number.isRequired
         }),
+    Expenditure: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        amount: PropTypes.number.isRequired, 
+        CategoryID: PropTypes.number.isRequired
+    }),
 }
 
 export default function AllTransactions(){
@@ -54,28 +59,12 @@ export default function AllTransactions(){
                     </li>
                 </ul>
              </div>
+             <br></br>
+             <br></br>
             <h2>All Transactions</h2>
-            <ul>
-            {TransactionList.map(Transaction => (
-                    <div key={Transaction.id} className="TransactionList">
-                    <li>
-                        {Transaction.amount}$ / to:  {Transaction.Beneficiary} / {Transaction.cashCredit} 
-                        <button className="Overviewbtn" onClick={() => setShowMoreModal(true)}>Details</button>
-                        <Modal show={showMoreModal} onHide={() => setShowMoreModal(false)}>
-                            <Modal.Header closeButton>
-                                    <Modal.Title>Več informacij</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                Transaction Description: {Transaction.description} <br></br> Amount: {Transaction.amount} <br></br> {Transaction.TransactionType} <br></br> Date: {Transaction.date} <br></br>Beneficiary: {Transaction.Beneficiary} <br></br>Type of Transaction: {Transaction.cashCredit}
-                            </Modal.Body>
-                            <Modal.Footer>
-                            </Modal.Footer>
-                        </Modal>
-
-                    </li>
-                    </div>
-                ))}
-                </ul>
+            <TransactionsProvider>
+            <AlltransactionsTable/>
+            </TransactionsProvider>
         </div>
     )
 

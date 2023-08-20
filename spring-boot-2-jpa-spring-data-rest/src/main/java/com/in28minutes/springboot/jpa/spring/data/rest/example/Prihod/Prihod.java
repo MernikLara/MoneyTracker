@@ -19,6 +19,22 @@ public class Prihod {
     private int Useridprihod;
     private int Kategorijaidprihod;
 
+    public int getUseridprihod() {
+        return Useridprihod;
+    }
+
+    public void setUseridprihod(int useridprihod) {
+        Useridprihod = useridprihod;
+    }
+
+    public int getKategorijaidprihod() {
+        return Kategorijaidprihod;
+    }
+
+    public void setKategorijaidprihod(int kategorijaidprihod) {
+        Kategorijaidprihod = kategorijaidprihod;
+    }
+
     @ManyToOne
     @JoinColumn(name = "Userid")
     private User user;

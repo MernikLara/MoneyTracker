@@ -1,16 +1,46 @@
-.category-container {
-    background-color: #e8f5e9;
-    padding: 20px;
-    border-radius: 8px;
-  }
+.fixed-header {
+  background-color: #4caf50;
+  padding: 1rem 0;
+}
+
+.nav-pills .nav-item .Navbtn {
+  background-color: #4caf50;
+  border: none;
+  margin: 0 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.nav-pills .nav-item .Navbtn:hover {
+  background-color: #3d8f40;
+}
+
+
+.add-category-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
   
-  .category-box {
-    background-color: #a5d6a7; 
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
+.category-container {
+  background-color: #e8f5e9;
+  padding: 20px;
+  border-radius: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;  
+}
+
+.category-box {
+  background-color: #a5d6a7; 
+  padding: 15px;
+  margin: 10px;  
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;  
+  min-width: 250px;  
+}
   
   .transaction {
     display: flex;

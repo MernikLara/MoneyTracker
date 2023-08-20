@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import '../Styles/Categories.css';
 import { Form, Modal, Button, Alert } from "react-bootstrap"
+import CategoryContext from '../contexts/CategoryContext';
+import TransactionsContext from '../contexts/TransactionsContext';
 
 const CategoryTransactions = ({ userId }) => {
-    const [categories, setCategories] = useState([]);
     const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [showTransactionModal, setShowTransactionModal] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -12,9 +13,11 @@ const CategoryTransactions = ({ userId }) => {
     const [type, setType] = useState(true);
     const [Transactionname, setTransactionName] = useState('');
     const [value, setValue] = useState('');
+    const { CategoryList, setCategoryList, addCategory } = useContext(CategoryContext)
+    const { TransactionList, setTransactionList } = useContext(TransactionsContext)
   return (
-    <div className="category-container">
-      <button onClick={() => setShowCategoryModal(true)}>Add Category</button>
+    <div className="add-category-container">
+      <button className='btn1' onClick={() => setShowCategoryModal(true)}>Add Category</button>
         <div className="modal">
             <Modal show={showCategoryModal} onHide={() =>setShowCategoryModal(false)}>
                 <Modal.Header closeButton>
@@ -57,7 +60,10 @@ const CategoryTransactions = ({ userId }) => {
                     <Button variant="secondary" onClick={() =>setShowCategoryModal(false)}>
                     Close
                     </Button>
-                    <Button variant="primary" onClick={() =>setShowCategoryModal(false)}>
+                    <Button variant="primary" onClick={() => {
+                      console.log('Add Button Clicked!');
+                      addCategory(Categoryname, limit, type);
+                     }}>
                     Add
                     </Button>
                 </Modal.Footer>
@@ -91,16 +97,16 @@ const CategoryTransactions = ({ userId }) => {
                 </Form>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={() =>setShowTransactionModal(false)}>
+                <Button variant="btn2" onClick={() =>setShowTransactionModal(false)}>
                 Close
                 </Button>
-                <Button variant="primary" onClick={() =>setShowTransactionModal(false)}>
+                <Button variant="btn1" onClick={() =>setShowTransactionModal(false)}>
                 Add
                 </Button>
             </Modal.Footer>
             </Modal>
         </div>
-      {categories.map(category => (
+        {Array.isArray(CategoryList) && CategoryList.map(category => (
         <div key={category.id} className="category-box">
           <h3>{category.name}</h3>
           {category.transactions.map(transaction => (

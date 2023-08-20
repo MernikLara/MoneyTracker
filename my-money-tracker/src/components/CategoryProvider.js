@@ -2,13 +2,14 @@ import CategoryContext from "../contexts/CategoryContext";
 import React, { useState, useEffect } from "react"
 import { useContext } from "react";
 import { LoginContext } from "./LoginProvider";
+import axios from 'axios'
 
 function CategoryProvider({ children }) {
     const [CategoryList, setCategoryList] = useState([]);
-    const  UserID  = useContext(LoginContext)
+    const  UserID  = sessionStorage.getItem("userID")
 
     useEffect(() => {
-        fetch('http://localhost:8080/api/v1/kategorija/${UserID}')
+        fetch(`http://localhost:8080/api/v1/kategorija/getbyuserid/${UserID}`)
         .then((res) => {
             return res.json();
         })
@@ -18,33 +19,41 @@ function CategoryProvider({ children }) {
             console.error("Error fetching transaction data:", error);
           });
       }, 
-      []);
+      [UserID]);
     
 
     const updateCList = (newCList) => {
         setCategoryList(newCList);
     };
 
-    const addCategory = (name, limit, type) => {
-        // API call to add category
-        // For now, we'll mock the API call
-        const newCategory = {
-          id: CategoryList.length + 1,
-          name,
-          userID: UserID,
-          limit,
-          type,
-          transactions: []
-        };
-        setCategoryList([...CategoryList, newCategory]);
+    const addCategory = async (name, limita, tip) => {
+      console.log('addCategory function called with:', name, limita, tip);
+        try {
+          const newCategory = {
+            name,
+            user_id: UserID,
+            limita,
+            tip,
+            transactions: []
+          }
+          const response = await axios.post('http://localhost:8080/api/v1/kategorija/add',  newCategory );
+          if (response.status === 200) {
+            console.log(response);
+            console.log(newCategory)
+            setCategoryList([...CategoryList, newCategory]);
+            updateCList(CategoryList);
+          }
+        } catch (error) {
+          console.error(error);
+        }
       };
+
     return (
-        <CategoryContext.Provider value={{CategoryList, updateCList }}>
+        <CategoryContext.Provider value={{CategoryList, addCategory, updateCList }}>
             {children}
         </CategoryContext.Provider>
     )
-    
-    const addTransaction = (categoryId, name, value) => {
+    /*const addTransaction = (categoryId, name, value) => {
         // API call to add transaction
         // For now, we'll mock the API call
         const updatedCategories = categories.map(category => {
@@ -62,7 +71,7 @@ function CategoryProvider({ children }) {
         });
         setCategories(updatedCategories);
         setShowTransactionModal(false);
-      };
+      };*/
 }
 
 export default CategoryProvider
