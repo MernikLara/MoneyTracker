@@ -63,11 +63,8 @@ public class OdhodService {
 
     }
 
-    public Optional<Odhod> getIdUser(Long UserId) {
-        Optional<Odhod> obstaja = odhodRepository.findOdhodsByUser(UserId);
-        if (!obstaja.isPresent()) {
-            throw new IllegalStateException("User s id: " + UserId + " ne obstaja.");
-        }
-        return odhodRepository.findOdhodsByUser(UserId);
+    public List<Odhod> getIdUser(Long UserId) {
+
+        return odhodRepository.findOdhodsByUserId(UserId);
     }
 }

@@ -1,5 +1,6 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.User;
 
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.Odhod;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.OdhodRepository;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.PrihodRepository;
 import jakarta.transaction.Transactional;
@@ -103,6 +104,12 @@ public class UserService {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalStateException("User s id: " + userId + " ne obstaja.") );
 
        user.dodajOdhod(odhodRepository.findById(odhodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " +odhodId + " ne obstaja.")));
+    }
+
+    public List<Odhod> getOdhodsByUserId(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalStateException("User with ID " + userId + " does not exist."));
+        return user.getOdhodList();
     }
 
 

@@ -3,6 +3,8 @@ import '../Styles/Categories.css';
 import { Form, Modal, Button, Alert } from "react-bootstrap"
 import CategoryContext from '../contexts/CategoryContext';
 import TransactionsContext from '../contexts/TransactionsContext';
+import { Link, useNavigate } from 'react-router-dom'
+
 
 const CategoryTransactions = ({ userId }) => {
     const [showCategoryModal, setShowCategoryModal] = useState(false);
@@ -14,7 +16,11 @@ const CategoryTransactions = ({ userId }) => {
     const [Transactionname, setTransactionName] = useState('');
     const [value, setValue] = useState('');
     const { CategoryList, setCategoryList, addCategory } = useContext(CategoryContext)
-    const { TransactionList, setTransactionList } = useContext(TransactionsContext)
+    const { TransactionList, setTransactionList, addExpenditure, addIncome } = useContext(TransactionsContext)
+    const [transactionType, setTransactionType] = useState('')
+    const navigate = useNavigate();
+    const UserID = sessionStorage.getItem('userID')
+    
   return (
     <div className="add-category-container">
       <button className='btn1' onClick={() => setShowCategoryModal(true)}>Add Category</button>
@@ -61,7 +67,7 @@ const CategoryTransactions = ({ userId }) => {
                     Close
                     </Button>
                     <Button variant="primary" onClick={() => {
-                      console.log('Add Button Clicked!');
+
                       addCategory(Categoryname, limit, type);
                      }}>
                     Add
@@ -100,24 +106,35 @@ const CategoryTransactions = ({ userId }) => {
                 <Button variant="btn2" onClick={() =>setShowTransactionModal(false)}>
                 Close
                 </Button>
-                <Button variant="btn1" onClick={() =>setShowTransactionModal(false)}>
-                Add
-                </Button>
+                <button 
+                    variant="btn1" 
+                    onClick={() => {
+                        addIncome(Transactionname, selectedCategory, "2023-08-21", value)}}>
+                                Add Income
+                  </button>
             </Modal.Footer>
             </Modal>
         </div>
-        {Array.isArray(CategoryList) && CategoryList.map(category => (
+        {(CategoryList && Array.isArray(CategoryList)) && CategoryList.map(category => (
         <div key={category.id} className="category-box">
-          <h3>{category.name}</h3>
-          {category.transactions.map(transaction => (
-            <div key={transaction.id} className="transaction">
-              <span>{transaction.name}</span>
-              <span>{transaction.value}</span>
-            </div>
-          ))}
+          <h3>Category Name: {category.name}</h3>
+          <h3>Limit: {category.limita} EUR</h3>
+          {category.transactions && category.transactions.length > 0 ? (
+                        category.transactions.map(transaction => (
+                            <div key={transaction.id}>
+                                <p>Name: {transaction.name}</p>
+                                <p>Value: {transaction.value}</p>
+                                <p>Category Name: {category.name}</p>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No transactions for this category.</p>
+                    )}
+         
           <button className='btn1' onClick={() => {
             setSelectedCategory(category.id);
             setShowTransactionModal(true);
+            setTransactionType(category.type);
           }}>
             Add Transaction
           </button>

@@ -6,9 +6,10 @@ import styles from '../App.css'
 import CategoryTransactions from '../components/CategoryTransactions'
 import TransactionsProvider from '../components/TransactionsProvider'
 import TransactionsContext from "../contexts/TransactionsContext";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import CategoryProvider from "../components/CategoryProvider";
 import '../Styles/Categorystyles.css'
+
 
 const CategoryType = {
     income: 'income',
@@ -41,6 +42,15 @@ export default function Overview(){
     const EditLRef = useRef()
     const EditCatid = useState()
     const ok = document.getElementById("EEditN")
+    const navigate = useNavigate();
+
+
+    const LogOut = () => {
+      sessionStorage.clear();
+      console.log("succeffuly logged out")
+      navigate('/')
+    }
+  
 
     
 
@@ -63,15 +73,26 @@ export default function Overview(){
           <li className="nav-item">
             <Link to='/pages/AllTransactions'><button className="Navbtn">Transactions</button></Link>
           </li>
+          <li>
+              <Button className='btn1' onClick={LogOut}>Logout</Button>
+            </li>
+            <li className='logo'>
+              <img
+              src='/images/MoneyTracker_logo.png'
+              ></img>
+            </li>
         </ul>
       </div>
+      <TransactionsProvider>
       <CategoryProvider>
       <br></br>
       <br></br>
+      <h2>Category Overview</h2>
       <br></br>
       <br></br>
        <CategoryTransactions/>
        </CategoryProvider>
+       </TransactionsProvider>
         </>
     )
 }

@@ -1,10 +1,7 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod;
 
-import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.Odhod;
-import com.in28minutes.springboot.jpa.spring.data.rest.example.User.User;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -67,12 +64,9 @@ public class PrihodService {
 
     }
 
-    public Optional<Prihod> getIdUser(Long UserId) {
-        Optional<Prihod> obstaja = prihodRepository.findPrihodsByUser(UserId);
-        if (!obstaja.isPresent()) {
-            throw new IllegalStateException("User id: " + UserId + " ne obstaja.");
-        }
-        return prihodRepository.findPrihodsByUser(UserId);
+    public List<Prihod> getIdUser(Long userId) {
+
+        return prihodRepository.findPrihodsByUserId(userId);
     }
 
 

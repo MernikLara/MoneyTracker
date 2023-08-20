@@ -1,6 +1,6 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod;
 
-import com.in28minutes.springboot.jpa.spring.data.rest.example.User.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,10 +18,16 @@ public class Odhod {
     public int Useridodhod;
     private int Kategorijaidodhod;
 
-    @ManyToOne
-    @JoinColumn(name = "Userid")
-    private User user;
+    @Column(name = "userid")
+    private long userId;
 
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
 
     public Odhod(long id, String name, int value) {
         Id = id;
@@ -29,13 +35,13 @@ public class Odhod {
         this.value = value;
     }
 
-    public Odhod(long id, String name, int value, int useridodhod, int kategorijaidodhod, User user) {
+    public Odhod(long id, String name, int value, int useridodhod, int kategorijaidodhod, long userId) {
         Id = id;
         this.name = name;
         this.value = value;
         Useridodhod = useridodhod;
         Kategorijaidodhod = kategorijaidodhod;
-        this.user = user;
+        this.userId = userId;
     }
 
     public Odhod(String name, int value) {
@@ -70,14 +76,6 @@ public class Odhod {
         Kategorijaidodhod = kategorijaidodhod;
     }
 
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public String getName() {
         return name;

@@ -5,9 +5,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import styles from '../App.css'
 import { propTypes } from "react-bootstrap/esm/Image";
 import TransactionsContext from "../contexts/TransactionsContext";
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import AlltransactionsTable from "../components/AlltransactionsTable";
 import TransactionsProvider from "../components/TransactionsProvider";
+
 
 const Cashless = {
     Cash: 'Cash',
@@ -39,6 +40,14 @@ propTypes.CategoryTransactions = {
 export default function AllTransactions(){
     const {TransactionList, updateTList} = useContext(TransactionsContext)
     const [showMoreModal, setShowMoreModal] = useState(false)
+    const navigate = useNavigate();
+    const LogOut = () => {
+        sessionStorage.clear();
+        console.log("succeffuly logged out")
+        navigate('/')
+      }
+    
+
     return(
         <div>
              <div className='fixed-header'>
@@ -57,6 +66,14 @@ export default function AllTransactions(){
                     <li className="nav-item">
                     <Link to='/pages/AllTransactions'><button className="Navbtn">Transactions</button></Link>
                     </li>
+                    <li>
+              <Button className='btn1' onClick={LogOut}>Logout</Button>
+            </li>
+            <li className='logo'>
+              <img
+              src='/images/MoneyTracker_logo.png'
+              ></img>
+            </li>
                 </ul>
              </div>
              <br></br>

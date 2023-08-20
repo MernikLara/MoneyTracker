@@ -1,5 +1,6 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.Odhod;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.Prihod;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Racun.Racun;
@@ -28,12 +29,14 @@ public class User {
     @OneToMany(mappedBy = "Useridprihod")
 
     private List<Prihod> prihodList;
-    @JsonIgnore
+    @JsonIgnoreProperties("Useridodhod")
     @OneToMany(mappedBy = "Useridodhod")
     private List<Odhod> odhodList;
 
     @OneToMany(mappedBy = "Useridracun")
     private List<Racun> racunList;
+
+
 
 
     public User(Long id, String email, String password, String name, String surname, List<Prihod> prihodList, List<Odhod> odhodList, List<Racun> racunList) {

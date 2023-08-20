@@ -91,11 +91,11 @@ public class KategorijaService {
 
     }
 
-    public Optional<Kategorija> getIdUser(Long UserId) {
+    public List<Kategorija> getIdUser(Long UserId) {
         boolean obstaja = kategorijaRepository.existsById(UserId);
         if (!obstaja) {
             throw new IllegalStateException("Kategorija s id: " + UserId + " ne obstaja.");
         }
-        return kategorijaRepository.findById(UserId);
+        return kategorijaRepository.findKategorijasByUserId(UserId);
     }
 }

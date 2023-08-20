@@ -7,11 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.RouteMatcher;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface KategorijaRepository extends JpaRepository<Kategorija, Long> {
 
-  //  Optional<Kategorija> findKategorijasByUser (User user);
-    //kategorija je povezana do userja preko prihoda in odhoda
+  List<Kategorija> findKategorijasByUserId(Long UserId);
 }

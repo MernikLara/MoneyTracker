@@ -2,7 +2,7 @@
 import React, { useContext, useState } from 'react';
 import { LoginContext, LoginProvider } from '../components/LoginProvider';
 import { Alert, Button, Form, Modal } from 'react-bootstrap';
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate} from "react-router-dom";
 import '../Styles/Login.css'
 
 function LoginRegister() {
@@ -20,6 +20,13 @@ function LoginRegister() {
     const navigate = useNavigate();
     const [showAlert, setShowAlert] = useState(false);
     const [alertMessage, setAlertMessage] = useState('');
+
+    const LogOut = () => {
+      sessionStorage.clear();
+      console.log("succeffuly logged out")
+      navigate('/')
+    }
+  
 
 
 
@@ -50,6 +57,22 @@ function LoginRegister() {
 
   return (
     <div className="login">
+      <div className='fixed-header'>
+        <ul className="nav nav-pills">
+          <li className="nav-item">
+            <Link to='/pages/Home'>
+              <button className="Navbtn">Home</button>
+            </Link>
+          </li>
+        <li className='logo'>
+              <img
+              src='/images/MoneyTracker_logo.png'
+              ></img>
+            </li>
+                </ul>
+            </div>
+
+
       <h2>Login</h2>
             {showAlert && 
                     <Alert variant="danger" onClose={() => setShowAlert(false)} dismissible>

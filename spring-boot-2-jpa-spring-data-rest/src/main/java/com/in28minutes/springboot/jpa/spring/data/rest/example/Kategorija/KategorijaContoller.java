@@ -59,8 +59,8 @@ public class KategorijaContoller {
     }
 
     @GetMapping(path="/getbyuserid/{userId}")
-    public void getUserId(@PathVariable("userId") Long UserId){
-        this.kategorijaService.getIdUser(UserId);
+    public List<Kategorija> getUserId(@PathVariable("userId") Long UserId){
+        return this.kategorijaService.getIdUser(UserId);
     }
 
 }

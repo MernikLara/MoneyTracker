@@ -1,9 +1,18 @@
 import { useState } from "react"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../Styles/BudgetStyles.css'
+import { Alert, Button, Form, Modal } from 'react-bootstrap';
 
 export default function Budget(){
     const [AllTransactions, setAllTransactions] = useState([])
+    const navigate = useNavigate();
+    const LogOut = () => {
+        sessionStorage.clear();
+        console.log("succeffuly logged out")
+        navigate('/')
+      }
+    
+
     return(
         <div className="budget-page">
         <div className='fixed-header'>
@@ -22,6 +31,14 @@ export default function Budget(){
                     <li className="nav-item">
                     <Link to='/pages/AllTransactions'><button className="Navbtn">Transactions</button></Link>
                     </li>
+                    <li>
+              <Button className='btn1' onClick={LogOut}>Logout</Button>
+            </li>
+            <li className='logo'>
+              <img
+              src='/images/MoneyTracker_logo.png'
+              ></img>
+            </li>
                 </ul>
              </div>
              <br></br>

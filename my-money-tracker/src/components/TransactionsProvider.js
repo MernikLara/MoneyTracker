@@ -7,7 +7,8 @@ function TransactionsProvider({ children }) {
     const [IncomeList, setIncomeList] = useState([]);
     const [ExpenditureList, setExpenditureList] =  useState([]);
     const [Error, setError] = useState(null)
-    const UserID = sessionStorage.getItem("userID")
+    const UserID = parseInt(sessionStorage.getItem("userID"))
+    const [IncomeID, setIncomeID] = useState()
 
     useEffect(() => {
         const getIncomes = async () => {
@@ -42,66 +43,63 @@ function TransactionsProvider({ children }) {
             };
             getExpenditures();
         }, [])
-            const addIncome = useCallback(async(incomeID, name, kategorijaid, userprihod, date, value) =>{
-                const Income = {
-                    name: name,
-                    kategorijaid: kategorijaid,
-                    user: userprihod,
-                    date: date,
-                    value: value,
-                    userid: UserID
+        const addIncome = useCallback(async (name, kategorijaid, date, value) => {
+            console.log("function called")
+            const Income = {
+                name: name,
+                kategorijaidprihod: kategorijaid,
+                useridprihod: UserID,
+                date: date,
+                value: value,
+                userid: UserID
+            };
+        
+            try {
+                const response = await axios.post('http://localhost:8080/api/v1/prihod', Income);
+                console.log(response.data);
+        
+                if (response.status === 200) {
+                    console.log('Income added Successfully');
+                    const newIncomeID = response.data.id;
+                    const res = await axios.post(`/addprihod/${kategorijaid}/${newIncomeID}`, { kategorijaid, id: newIncomeID });
+                    
+                    console.log(res.data);
+                    
+                    if (res.status === 200) {
+                        console.log('Income added successfully to category');
+                    }
                 }
-                try {
-                    await axios.post(`api/v1/prihod`, Income)
-                    .then(response => {
-                        console.log(response.data)
-                        if (response.status === 200){
-                            console.log("Income added Successfully")
-                        }
-                    })
-                    await axios.post(`/addprihod/${kategorijaid}/${incomeID}`, kategorijaid, incomeID )
-                    .then(res => {
-                        console.log(res.data)
-                        if(res.status ===200){
-                            console.log("Income added successfuly to category")
-                        }
-                    })
-                }   
-                catch (err) {
-                    console.error('Error adding Income', err)
-                }
+            } catch (err) {
+                console.error('Error adding Income', err);
             }
-            , [UserID])
-            const addExpenditure = useCallback(async(incomeID, name, kategorijaid, useridodhod, value) =>{
+        }, [UserID]);
+            const addExpenditure = useCallback(async( name, kategorijaid, useridodhod, value) =>{
                 const Expenditure = {
                     name: name,
-                    kategorijaid: kategorijaid,
-                    user: useridodhod,
+                    kategorijaiprihod: kategorijaid,
+                    useridodhod: useridodhod,
                     value: value,
                     userid: UserID
                 }
                 try {
-                    await axios.post(`api/v1/prihod`, Expenditure)
-                    .then(response => {
-                        console.log(response.data)
-                        if (response.status === 200){
-                            console.log("Income added Successfully")
+                    const response = await axios.post('http://localhost:8080/api/v1/prihod', Expenditure);
+                    console.log(response.data);
+            
+                    if (response.status === 200) {
+                        console.log('Expenditure added Successfully');
+                        const newExpenditureID = response.data.id;
+                        const res = await axios.post(`/addprihod/${kategorijaid}/${newExpenditureID}`, { kategorijaid, id: newExpenditureID });
+                        
+                        console.log(res.data);
+                        
+                        if (res.status === 200) {
+                            console.log('Expenditure added successfully to category');
                         }
-                    })
-                    await axios.post(`/addodhod/${kategorijaid}/${incomeID}`, kategorijaid, incomeID )
-                    .then(res => {
-                        console.log(res.data)
-                        if(res.status ===200){
-                            console.log("Expenditure added successfuly to category")
-                        }
-                    })
-                }   
-                catch (err) {
-                    console.error('Error adding Expenditure', err)
+                    }
+                } catch (err) {
+                    console.error('Error adding Expenditure', err);
                 }
-            }
-            , [UserID])
-
+            }, [UserID]);
 
 
 

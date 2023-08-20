@@ -1,6 +1,6 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod;
 
-import com.in28minutes.springboot.jpa.spring.data.rest.example.User.User;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -27,18 +27,17 @@ public class Prihod {
         Useridprihod = useridprihod;
     }
 
-    public int getKategorijaidprihod() {
-        return Kategorijaidprihod;
+
+    @Column(name = "userid")
+    private long userId;
+
+    public long getUserId() {
+        return userId;
     }
 
-    public void setKategorijaidprihod(int kategorijaidprihod) {
-        Kategorijaidprihod = kategorijaidprihod;
+    public void setUserId(long userId) {
+        this.userId = userId;
     }
-
-    @ManyToOne
-    @JoinColumn(name = "Userid")
-    private User user;
-
 
     public Prihod(Long id, String name, int value, LocalDate date) {
         this.id = id;
@@ -82,14 +81,6 @@ public class Prihod {
 
     public LocalDate getDate() {
         return date;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
 

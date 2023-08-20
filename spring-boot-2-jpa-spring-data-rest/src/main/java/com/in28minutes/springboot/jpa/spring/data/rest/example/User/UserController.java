@@ -1,5 +1,6 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.User;
 
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.Odhod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,6 +64,11 @@ public class UserController {
     public void addOdhod(@PathVariable("userId") Long userId,@PathVariable("odhodId") Long odhodId) {
         userService.addOdhod(userId, odhodId);
 
+    }
+
+    @GetMapping(path="/{userId}/odhods")
+    public List<Odhod> getOdhodsByUserId(@PathVariable("userId") Long userId) {
+        return userService.getOdhodsByUserId(userId);
     }
 
 

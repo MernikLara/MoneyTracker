@@ -45,7 +45,7 @@ export default function AlltransactionsTable(){
     const OCategory = useState();
 
     const findCategorybyID = (id) => {
-        return CategoryList.find(Category => Category.id === id)
+        return CategoryList.find(Category => Category.id === id) || {};
     }
     return (
         <div className="container mt-5"> 
@@ -67,8 +67,8 @@ export default function AlltransactionsTable(){
                                 
                                 return (
                                     <tr key={Income.id}>
-                                        <td>{category.name}</td>
-                                        <td>{Income.amount}</td>
+                                        <td>{category && category.name ? category.name : "Failed to fetch category"}</td>
+                                        <td>{Income.value}</td>
                                         <td>{Income.name}</td>
                                         <td>{Income.date}</td>
                                     </tr>
@@ -94,10 +94,9 @@ export default function AlltransactionsTable(){
                                 
                                 return (
                                     <tr key={Expenditure.id}>
-                                        <td>{category.name}</td>
-                                        <td>{Expenditure.amount}</td>
+                                        <td>{category && category.name ? category.name : "Failed to fetch category"}</td>
+                                        <td>{Expenditure.value}</td>
                                         <td>{Expenditure.name}</td>
-                                        <td>{Expenditure.date}</td>
                                     </tr>
                                 );
                             })}
