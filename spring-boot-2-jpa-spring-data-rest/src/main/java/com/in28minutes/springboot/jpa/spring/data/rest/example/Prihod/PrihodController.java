@@ -1,5 +1,6 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod;
 
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.Odhod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -36,10 +37,10 @@ private final PrihodService prihodService;
     }
 
     @PostMapping
-    public void addPrihod(@RequestBody Prihod prihod) {
-
-        this.prihodService.addPrihod(prihod);
-
+    public long addPrihod(@RequestBody Prihod prihod) {
+        System.out.println(prihod);
+        Prihod Sprihod = this.prihodService.addPrihod(prihod);
+        return Sprihod.getId();
     }
 
     @DeleteMapping(
@@ -57,8 +58,10 @@ private final PrihodService prihodService;
     }
 
 
-    @GetMapping(path="/getbyuserid/{userId}")
-    public List<Prihod> getUserId(@PathVariable("userId") Long userId){
-       return this.prihodService.getIdUser(userId);
+    @GetMapping( path = {"userid/{userId}"})
+    public List<Prihod> getbyuserId(@PathVariable("userId") Long useridprihod) {
+        return this.prihodService.getidUser(useridprihod);
     }
+
+
 }

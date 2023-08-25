@@ -7,7 +7,8 @@ import { propTypes } from "react-bootstrap/esm/Image";
 import TransactionsContext from "../contexts/TransactionsContext";
 import { Link, useNavigate } from 'react-router-dom'
 import AlltransactionsTable from "../components/AlltransactionsTable";
-import TransactionsProvider from "../components/TransactionsProvider";
+import MasterProvider from "../components/MasterProvider";
+
 
 
 const Cashless = {
@@ -79,9 +80,9 @@ export default function AllTransactions(){
              <br></br>
              <br></br>
             <h2>All Transactions</h2>
-            <TransactionsProvider>
+            <MasterProvider>
             <AlltransactionsTable/>
-            </TransactionsProvider>
+            </MasterProvider>
         </div>
     )
 

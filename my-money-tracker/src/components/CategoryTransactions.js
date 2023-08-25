@@ -1,26 +1,126 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import '../Styles/Categories.css';
 import { Form, Modal, Button, Alert } from "react-bootstrap"
-import CategoryContext from '../contexts/CategoryContext';
-import TransactionsContext from '../contexts/TransactionsContext';
+import MasterContext from '../contexts/MasterContext';
 import { Link, useNavigate } from 'react-router-dom'
+import propTypes from 'prop-types';
+
+const CategoryType = {
+    income: 'income',
+    expenditure: 'expenditure'
+}
+
+
 
 
 const CategoryTransactions = ({ userId }) => {
     const [showCategoryModal, setShowCategoryModal] = useState(false);
     const [showTransactionModal, setShowTransactionModal] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [kategorijaID, setKategorijaID] = useState();
     const [Categoryname, setCategoryName] = useState('');
     const [limit, setLimit] = useState('');
     const [type, setType] = useState(true);
     const [Transactionname, setTransactionName] = useState('');
     const [value, setValue] = useState('');
-    const { CategoryList, setCategoryList, addCategory } = useContext(CategoryContext)
-    const { TransactionList, setTransactionList, addExpenditure, addIncome } = useContext(TransactionsContext)
+    const { CategoryList, setCategoryList, addCategory, IncomeList, setIncomeList, ExpenditureList, setExpenditureList, addExpenditure, addIncome, getSpecificPrihodi } = useContext(MasterContext);
     const [transactionType, setTransactionType] = useState('')
     const navigate = useNavigate();
     const UserID = sessionStorage.getItem('userID')
+    const incomeShape = propTypes.shape({
+        id: propTypes.number.isRequired,
+        name: propTypes.string.isRequired,
+        amount: propTypes.number.isRequired, 
+        date: propTypes.string.isRequired,
+        kategorijaid: propTypes.number.isRequired
+    });
     
+    const expenditureShape = propTypes.shape({
+        id: propTypes.number.isRequired,
+        name: propTypes.string.isRequired,
+        amount: propTypes.number.isRequired, 
+        date: propTypes.string.isRequired,
+        kategorijaid: propTypes.number.isRequired
+    });
+    
+    CategoryTransactions.propTypes = {
+        Category: propTypes.shape({
+            name: propTypes.string.isRequired,
+            userid: UserID,
+            limita: propTypes.number.isRequired,
+            tip: propTypes.bool.isRequired,
+            transactions: propTypes.arrayOf(
+                propTypes.oneOfType([incomeShape, expenditureShape])
+            ).isRequired
+        }),
+        Income: incomeShape,
+        Expenditure: expenditureShape
+    };
+    
+
+
+    useEffect(() => {
+        console.log("Kategorija ID in TransactionType", kategorijaID);
+    }, [kategorijaID]);
+
+    function handleClick (id, Type) {
+        console.log("My Name Jeff" + id, type)
+        setTransactionType(Type)
+        setKategorijaID(id)
+        setShowTransactionModal(true)
+        console.log("Catch22" + transactionType, kategorijaID)
+    }
+
+    /*const IncomesByCategory = IncomeList.reduce((acc, Income) => {
+        if (!acc[Income.kategorijaid]) {
+            acc[Income.kategorijaid] = [];
+        }
+        acc[Income.kategorijaid].push(Income);
+
+        return acc;
+        
+    }, {});*/
+
+    
+
+    function handleRender(id, Type) {
+        console.log("Handlerender" + id, Type);
+    
+    
+        const updatedCategoryList = [...CategoryList];
+    
+
+        const category = updatedCategoryList.find(cat => cat.id === id);
+    
+        if (category) {
+            if (Type === true) {
+        
+                IncomeList.forEach(Income => {
+                    if (Income.kategorijaid === id) {
+                        console.log(category.transaction)
+                        if (!category.transactions) {
+                            category.transactions = [];
+                        }
+                        category.transactions.push(Income);
+                    }
+                });
+            } else if (Type === false) {
+                ExpenditureList.forEach(Expenditure => {
+                    if (Expenditure.kategorijaid === id) {
+                        if (!category.transactions) {
+                            category.transactions = [];
+                        }
+                        category.transactions.push(Expenditure);
+                    }
+                });
+            }
+            setCategoryList(updatedCategoryList);
+        }
+    }
+    CategoryList.map(category => {
+        console.log("Transactions for category", category.id, ":", category.transactions);
+    });
+   
+
   return (
     <div className="add-category-container">
       <button className='btn1' onClick={() => setShowCategoryModal(true)}>Add Category</button>
@@ -76,7 +176,7 @@ const CategoryTransactions = ({ userId }) => {
                 </Modal>
         </div>
         <div className="modal">
-        <Modal show={showTransactionModal} onHide={()=>showTransactionModal(false)}>
+        <Modal show={showTransactionModal} onHide={()=>setShowTransactionModal(false)}>
             <Modal.Header closeButton>
                 <Modal.Title>Add Transaction</Modal.Title>
             </Modal.Header>
@@ -106,40 +206,41 @@ const CategoryTransactions = ({ userId }) => {
                 <Button variant="btn2" onClick={() =>setShowTransactionModal(false)}>
                 Close
                 </Button>
+                {
                 <button 
                     variant="btn1" 
                     onClick={() => {
-                        addIncome(Transactionname, selectedCategory, "2023-08-21", value)}}>
+                        addIncome(Transactionname, kategorijaID, value)
+                        }}>
                                 Add Income
-                  </button>
+                  </button>}
             </Modal.Footer>
             </Modal>
         </div>
         {(CategoryList && Array.isArray(CategoryList)) && CategoryList.map(category => (
-        <div key={category.id} className="category-box">
-          <h3>Category Name: {category.name}</h3>
-          <h3>Limit: {category.limita} EUR</h3>
-          {category.transactions && category.transactions.length > 0 ? (
-                        category.transactions.map(transaction => (
-                            <div key={transaction.id}>
-                                <p>Name: {transaction.name}</p>
-                                <p>Value: {transaction.value}</p>
-                                <p>Category Name: {category.name}</p>
-                            </div>
-                        ))
-                    ) : (
-                        <p>No transactions for this category.</p>
-                    )}
-         
-          <button className='btn1' onClick={() => {
-            setSelectedCategory(category.id);
-            setShowTransactionModal(true);
-            setTransactionType(category.type);
-          }}>
+            <div key={category.id} className="category-box">
+                <h3>Category Name: {category.name}</h3>
+                <h3>Limit: {category.limita} EUR</h3>
+                <h3>Type: {category.type}</h3>
+                <h4>Transactions</h4>
+                {(category.transactions && Array.isArray(category.transactions)) ? (
+                    category.transactions.map(transaction => (
+                        <ul key={transaction.id}>
+                            <li>{transaction}</li>
+
+                        </ul>
+                    ))
+                ) : (
+                    <p>No transactions for this category.</p>
+                )}
+        <button className='btn1' onClick={() => {
+            handleClick(category.id, category.Type);
+        }}>
             Add Transaction
-          </button>
-        </div>
-      ))}
+        </button>
+    </div>
+))}
+    
     </div>
   );
 };

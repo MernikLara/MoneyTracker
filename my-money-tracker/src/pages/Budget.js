@@ -3,6 +3,44 @@ import { Link, useNavigate } from 'react-router-dom'
 import '../Styles/BudgetStyles.css'
 import { Alert, Button, Form, Modal } from 'react-bootstrap';
 
+const sampleCategoryList = [
+    {
+      id: 1,
+      name: 'Najemnina',
+      userId: 123,
+      limita: 500,
+      tip: 'Expense',
+      transactions: [
+        { id: 101, name: 'Najemnina', value: 400 },
+        { id: 102, name: 'Staninvest', value: 50 },
+      ],
+    },
+    {
+      id: 2,
+      name: 'Stroški bivanja',
+      userId: 123,
+      limita: 500,
+      tip: 'Expense',
+      transactions: [
+        { id: 201, name: 'Tamstan', value: 70 },
+        { id: 202, name: 'Telemach', value: 70 },
+        { id: 203, name: 'Elektro Maribor', value: 55 },
+      ],
+    },
+    {
+      id: 2,
+      name: 'Avto',
+      userId: 123,
+      limita: 500,
+      tip: 'Expense',
+      transactions: [
+        { id: 201, name: 'Bencin', value: 90 },
+        { id: 202, name: 'Lizing', value: 200 },
+        { id: 202, name: 'Zavarovanje', value: 50 },
+      ],
+    },
+  ];
+
 export default function Budget(){
     const [AllTransactions, setAllTransactions] = useState([])
     const navigate = useNavigate();
@@ -11,6 +49,7 @@ export default function Budget(){
         console.log("succeffuly logged out")
         navigate('/')
       }
+    //Developer note: Lara v div z className= budgeting vstavi budgeting
     
 
     return(
@@ -45,6 +84,13 @@ export default function Budget(){
              <br></br>
              <br></br>
              <h2>Budgeting</h2>
+             <center>
+                { sampleCategoryList.reduce(
+                    (total, category) => total + category.transactions.reduce((categoryTotal, transaction) => categoryTotal + transaction.value, 0),0)
+                }
+                /
+                { sampleCategoryList.reduce((total, category) => total + category.limita,0) }
+             </center>
             <div className="row">
                 <div className="small-card">
                     <h4>Getting started</h4>
@@ -53,8 +99,19 @@ export default function Budget(){
                 <div className="large-card">
                     <h4>Basic Decision-making Algorithm</h4>
                     <p>Detailed content and structure for the decision-making algorithm.</p>
+
+                {sampleCategoryList.map(category => (
+
+                <div key={category.id} className="small-card">
+                    <h4>{category.name}</h4>
+                    <p>Limit: {category.limita}</p>
+                    <p>Type: {category.tip}</p>
+                    <p>Spent: {category.transactions.reduce((total, transaction) => total + transaction.value, 0)}</p>
                 </div>
+
+                ))}
             </div>
+        </div>
         </div>
     )
 

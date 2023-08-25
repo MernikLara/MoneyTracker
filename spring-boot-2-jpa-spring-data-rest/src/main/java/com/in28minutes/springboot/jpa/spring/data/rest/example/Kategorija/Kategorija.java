@@ -3,12 +3,16 @@ package com.in28minutes.springboot.jpa.spring.data.rest.example.Kategorija;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.Odhod;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.Prihod;
 import jakarta.persistence.*;
+import jakarta.persistence.criteria.CriteriaBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Table
 @Entity
 public class Kategorija {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 
@@ -16,7 +20,7 @@ public class Kategorija {
 
     private String name;
 
-    private Long userId;
+    private Long userid;
 
     private Long limita;
 
@@ -24,56 +28,61 @@ public class Kategorija {
     //false = odhod :(
     private boolean tip;
 
-    @OneToMany(mappedBy = "Kategorijaidprihod")
-    private List<Prihod> prihodList;
+    @ElementCollection
+    private List<Long> prihodList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "Kategorijaidodhod")
-    private List<Odhod> odhodList;
+    @ElementCollection
+    private List<Long> odhodList = new ArrayList<>();
 
-    public Kategorija(Long id, String name, Long userId, Long limita, boolean tip , List<Prihod> prihodList, List<Odhod> odhodList) {
-        this.id = id;
-        this.name = name;
-        this.userId = userId;
-        this.limita = limita;
-        this.tip = tip;
-        this.prihodList = prihodList;
-        this.odhodList = odhodList;
-    }
-
-
-    public Kategorija(String name,Long userId, Long limita, boolean tip, List<Prihod> prihodList, List<Odhod> odhodList) {
-        this.name = name;
-        this.userId = userId;
-        this.limita = limita;
-        this.tip = tip;
-        this.prihodList = prihodList;
-        this.odhodList = odhodList;
-    }
-
-    public Kategorija(Long id, String name, Long limita, boolean tip ,Long userId) {
+    public Kategorija(Long id, String name, Long userid, Long limita, boolean tip , List<Long> prihodList, List<Long> odhodList) {
         this.id = id;
         this.name = name;
         this.limita = limita;
         this.tip = tip;
-        this.userId = userId;
+        this.prihodList = new ArrayList<>();
+        this.odhodList = new ArrayList<>();
+        this.userid = userid;
+
     }
 
-    public Kategorija(String name,Long limita, boolean tip,Long userId) {
-        this.name = name;
-        this.limita = limita;
-        this.tip = tip;
-        this.userId = userId;
+
+
+
+    public Kategorija(String name,Long userid, Long limita, boolean tip, List<Long> prihodList, List<Long> odhodList) {
+          this.name = name;
+          this.limita = limita;
+          this.tip = tip;
+          this.prihodList = new ArrayList<>();
+          this.odhodList = new ArrayList<>();
+          this.userid = userid;
+      }
+
+      public Kategorija(Long id, String name, Long limita, boolean tip ,Long userid) {
+          this.id = id;
+          this.name = name;
+          this.limita = limita;
+          this.tip = tip;
+          this.userid = userid;
+      }
+
+      public Kategorija(String name,Long limita, boolean tip,Long userid) {
+          this.name = name;
+          this.limita = limita;
+          this.tip = tip;
+          this.userid = userid;
+      }
+
+      public Kategorija() {
+      }
+
+    public void dodajPrihod(Long prihodid){
+        if(prihodList == null) prihodList = new ArrayList<>();
+        prihodList.add(prihodid);
     }
 
-    public Kategorija() {
-    }
-
-    public void dodajPrihod(Prihod prihod){
-        prihodList.add(prihod);
-    }
-
-    public void dodajOdhod(Odhod odhod){
-        odhodList.add(odhod);
+    public void dodajOdhod(Long odhodid){
+        if(odhodList == null) odhodList = new ArrayList<>();
+        odhodList.add(odhodid);
     }
 
 
@@ -94,28 +103,20 @@ public class Kategorija {
         this.name = name;
     }
 
-    public List<Prihod> getPrihodList() {
+    public List<Long> getPrihodList() {
         return prihodList;
     }
 
-    public void setPrihodList(List<Prihod> prihodList) {
-        this.prihodList = prihodList;
-    }
-
-    public List<Odhod> getOdhodList() {
+    public List<Long> getOdhodList() {
         return odhodList;
     }
 
-    public void setOdhodList(List<Odhod> odhodList) {
-        this.odhodList = odhodList;
+    public Long getUserid() {
+        return userid;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 
     public Long getLimita() {
@@ -139,7 +140,7 @@ public class Kategorija {
         return "Kategorija{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", userId=" + userId +
+                ", userid=" + userid +
                 ", limita=" + limita +
                 ", tip=" + tip +
                 ", prihodList=" + prihodList +

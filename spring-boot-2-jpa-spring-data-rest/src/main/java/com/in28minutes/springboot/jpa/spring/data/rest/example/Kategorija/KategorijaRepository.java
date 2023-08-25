@@ -13,5 +13,6 @@ import java.util.Optional;
 @Repository
 public interface KategorijaRepository extends JpaRepository<Kategorija, Long> {
 
-  List<Kategorija> findKategorijasByUserId(Long UserId);
+
+  List<Kategorija> findKategorijasByUserid(Long userid);
 }

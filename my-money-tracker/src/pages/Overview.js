@@ -9,6 +9,7 @@ import TransactionsContext from "../contexts/TransactionsContext";
 import { Link, useNavigate } from 'react-router-dom'
 import CategoryProvider from "../components/CategoryProvider";
 import '../Styles/Categorystyles.css'
+import MasterProvider from "../components/MasterProvider";
 
 
 const CategoryType = {
@@ -83,16 +84,14 @@ export default function Overview(){
             </li>
         </ul>
       </div>
-      <TransactionsProvider>
-      <CategoryProvider>
+      <MasterProvider>
       <br></br>
       <br></br>
       <h2>Category Overview</h2>
       <br></br>
       <br></br>
        <CategoryTransactions/>
-       </CategoryProvider>
-       </TransactionsProvider>
+       </MasterProvider>
         </>
     )
 }

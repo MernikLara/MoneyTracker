@@ -53,14 +53,39 @@ public class KategorijaContoller {
     }
 
     @PostMapping(path = "/addodhod/{kategorijaId}/{odhodId}")
+    public void addOdhod(@PathVariable("kategorijaId") Long kategorijaId,@PathVariable("odhodId") Long odhodId){
+        kategorijaService.addOdhod(kategorijaId,odhodId);
+    }
+
+
+    @GetMapping(path = "/vsiprihodi/{kategorijaId}")
+    public List<Long> vsiprihodi(@PathVariable("kategorijaId") Long kategorijaId){
+       return kategorijaService.vsiPrihodi(kategorijaId);
+    }
+
+    @GetMapping(path = "/vsiodhodi/{kategorijaId}")
+    public List<Long> vsiodhodi(@PathVariable("kategorijaId") Long kategorijaId){
+       return kategorijaService.vsiOdhodi(kategorijaId);
+
+    }
+
+
+
+    /* popravi da bo bolse delalo :)
+    @PostMapping(path = "/addprihod/{kategorijaId}/{prihodId}")
+    public void addPrihod(@PathVariable("kategorijaId") Long kategorijaId,@PathVariable("prihodId") Long prihodId){
+        kategorijaService.addPrihod(kategorijaId,prihodId);
+    }
+
+    @PostMapping(path = "/addodhod/{kategorijaId}/{odhodId}")
     public void addOdhod(@PathVariable("kategorijaId") Long kategorijaId,@PathVariable("odhodId") Long odhodId) {
         kategorijaService.addOdhod(kategorijaId, odhodId);
 
     }
-
-    @GetMapping(path="/getbyuserid/{userId}")
-    public List<Kategorija> getUserId(@PathVariable("userId") Long UserId){
-        return this.kategorijaService.getIdUser(UserId);
+*/
+    @GetMapping(path="/getbyuserid/{userid}")
+    public List<Kategorija> getUserId(@PathVariable("userid") Long userid){
+        return this.kategorijaService.getIdUser(userid);
     }
 
 }

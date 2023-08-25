@@ -18,28 +18,26 @@ const LoginProvider = ({ children }) => {
   const authenticateUser = useCallback(async (email, password) => {
     try {
       const response = await axios.post('http://localhost:8080/api/v1/user/login', {email, password});
-      if (response.status === 200) {
-        const Userid = response.data.id 
-        if(isNaN(Userid)){
-          console.log("error with getting session ID")
-          navigate('/')
-          
+        if (response.status === 200 && response.data) {
+            const Userid = response.data.id;
+            if(isNaN(Userid)){
+                console.log("error with getting session ID");
+                navigate('/');
+            } else {
+                setUserID(Userid);
+                setEmail(email);
+                setUsername(response.data.name);
+                setSurname(response.data.surname);
+                setIsLoggedIn(true);
+                sessionStorage.setItem('userID', Userid);
+                sessionStorage.setItem('email', email);
+                sessionStorage.setItem('name', response.data.name);
+                sessionStorage.setItem('surname', response.data.surname);
+                sessionStorage.setItem('isLoggedIn', 'true');
+            }
         }
-        else {
-          setUserID(Userid);
-          setEmail(email);
-          setUsername(response.data.name);
-          setSurname(response.data.surname)
-          setIsLoggedIn(true)
-        }
-        sessionStorage.setItem('userID', Userid);
-        sessionStorage.setItem('email', email);
-        sessionStorage.setItem('name', response.data.name);
-        sessionStorage.setItem('surname', response.data.surname);
-        sessionStorage.setItem('isLoggedIn', 'true');
-      }
     } catch (error) {
-      console.error(error);
+        console.error(error);
     } console.log(userID);
   }, [])
 

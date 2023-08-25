@@ -14,20 +14,19 @@ import java.util.Optional;
 @Service
 public class KategorijaService {
     private final KategorijaRepository kategorijaRepository;
-    private final PrihodRepository prihodRepository;
-    private final OdhodRepository odhodRepository;
+//    private final PrihodRepository prihodRepository;
+  //  private final OdhodRepository odhodRepository;
 
     @Autowired
-    public KategorijaService(KategorijaRepository kategorijaRepository, PrihodRepository prihodRepository, OdhodRepository odhodRepository) {
+    public KategorijaService(KategorijaRepository kategorijaRepository /*,PrihodRepository prihodRepository, OdhodRepository odhodRepository*/) {
         this.kategorijaRepository = kategorijaRepository;
-        this.prihodRepository = prihodRepository;
-        this.odhodRepository = odhodRepository;
+      //  this.prihodRepository = prihodRepository;
+       // this.odhodRepository = odhodRepository;
     }
 
     public List<Kategorija> getVsi() {
         return kategorijaRepository.findAll();
     }
-
 
 
     public Optional<Kategorija> getIdKategorija(Long kategorijaId) {
@@ -44,58 +43,90 @@ public class KategorijaService {
         this.kategorijaRepository.save(kategorija);
     }
 
-    public void deleteKategorija(Long kategorijaId){
+    public void deleteKategorija(Long kategorijaId) {
         Boolean obstaja = this.kategorijaRepository.existsById(kategorijaId);
-        if(!obstaja){
+        if (!obstaja) {
             throw new IllegalStateException("Kategorija s id: " + kategorijaId + " ne obstaja.");
-        }else{
+        } else {
             this.kategorijaRepository.deleteById(kategorijaId);
         }
     }
 
     @Transactional
-    public void updateKategorija(Long kategorijaId, String name){
-        Kategorija kategorija = kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("Kategorija s id: " + kategorijaId + " ne obstaja.") );
+    public void updateKategorija(Long kategorijaId, String name) {
+        Kategorija kategorija = kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("Kategorija s id: " + kategorijaId + " ne obstaja."));
 
-        if(name != null && name.length() > 0 && !Objects.equals(kategorija.getName(), name)){
+        if (name != null && name.length() > 0 && !Objects.equals(kategorija.getName(), name)) {
             kategorija.setName(name);
-        }else{
+        } else {
             throw new IllegalStateException("Neveljaven vnos idk");
         }
     }
 
     @Transactional
-    public void updateKategorijalimit(Long kategorijaId, Long limita){
-        Kategorija kategorija = kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("Kategorija s id: " + kategorijaId + " ne obstaja.") );
+    public void updateKategorijalimit(Long kategorijaId, Long limita) {
+        Kategorija kategorija = kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("Kategorija s id: " + kategorijaId + " ne obstaja."));
 
-        if( !Objects.equals(kategorija.getLimita(), limita)){
+        if (!Objects.equals(kategorija.getLimita(), limita)) {
             kategorija.setLimita(limita);
-        }else{
+        } else {
             throw new IllegalStateException("Neveljaven vnos idk");
         }
     }
 
 
     public void addPrihod(Long kategorijaId, Long prihodId) {
-       Kategorija kategorija = kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("User s id: " +kategorijaId + " ne obstaja.") );
 
-        kategorija.dodajPrihod(prihodRepository.findById(prihodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " + prihodId + " ne obstaja.") ));
+
+        Kategorija kategorija = this.kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("Kategorija s id: " + kategorijaId + " ne obstaja."));
+
+        kategorija.dodajPrihod(prihodId);
+        kategorijaRepository.save(kategorija);
+    }
+
+    public void addOdhod(Long kategorijaId, Long odhodId) {
+
+        Kategorija kategorija = this.kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("Kategorija s id: " + kategorijaId + " ne obstaja."));
+
+        kategorija.dodajOdhod(odhodId);
+        kategorijaRepository.save(kategorija);
+    }
+
+
+    public List<Long> vsiPrihodi(Long kategorijaId){
+        Kategorija kategorija = this.kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("Kategorija s id: " + kategorijaId + " ne obstaja."));
+
+       return kategorija.getPrihodList();
+    }
+    public List<Long> vsiOdhodi(Long kategorijaId){
+        Kategorija kategorija = this.kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("Kategorija s id: " + kategorijaId + " ne obstaja."));
+
+       return kategorija.getOdhodList();
+    }
+
+/*
+    public void addPrihod(Long kategorijaId, Long prihodId) {
+        Kategorija kategorija = kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("User s id: " + kategorijaId + " ne obstaja."));
+
+        kategorija.dodajPrihod(prihodRepository.findById(prihodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " + prihodId + " ne obstaja.")));
 
     }
 
     public void addOdhod(Long kategorijaId, Long odhodId) {
 
-        Kategorija kategorija = kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("User s id: " +kategorijaId + " ne obstaja.") );
+        Kategorija kategorija = kategorijaRepository.findById(kategorijaId).orElseThrow(() -> new IllegalStateException("User s id: " + kategorijaId + " ne obstaja."));
 
-        kategorija.dodajOdhod(odhodRepository.findById(odhodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " + odhodId + " ne obstaja.") ));
+        kategorija.dodajOdhod(odhodRepository.findById(odhodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " + odhodId + " ne obstaja.")));
 
-    }
-
-    public List<Kategorija> getIdUser(Long UserId) {
-        boolean obstaja = kategorijaRepository.existsById(UserId);
+    }-
+*/
+    public List<Kategorija> getIdUser(Long userid) {
+        boolean obstaja = kategorijaRepository.existsById(userid);
         if (!obstaja) {
-            throw new IllegalStateException("Kategorija s id: " + UserId + " ne obstaja.");
+            throw new IllegalStateException("Kategorija s id: " + userid + " ne obstaja.");
         }
-        return kategorijaRepository.findKategorijasByUserId(UserId);
+
+        return kategorijaRepository.findKategorijasByUserid(userid);
     }
+
 }

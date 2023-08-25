@@ -1,7 +1,7 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod;
 
-import com.in28minutes.springboot.jpa.spring.data.rest.example.Kategorija.Kategorija;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.Prihod;
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Racun.Racun;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -63,8 +63,9 @@ public class OdhodService {
 
     }
 
-    public List<Odhod> getIdUser(Long UserId) {
+    public List<Odhod> getidUser(Long useridodhod) {
 
-        return odhodRepository.findOdhodsByUserId(UserId);
+        return odhodRepository.findOdhodsByUseridodhod(useridodhod);
     }
+
 }

@@ -1,7 +1,11 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.in28minutes.springboot.jpa.spring.data.rest.example.User.User;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Table
@@ -13,43 +17,47 @@ public class Odhod {
     private long Id;
     private String name;
     private int value;
+    private Long useridodhod;
+    private Long kategorijaidodhod;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
+    private LocalDate date;
 
 
-    public int Useridodhod;
-    private int Kategorijaidodhod;
 
-    @Column(name = "userid")
-    private long userId;
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    public Odhod(long id, String name, int value) {
+    public Odhod(long id, String name, int value, LocalDate date) {
         Id = id;
         this.name = name;
         this.value = value;
+        this.date= date;
     }
 
-    public Odhod(long id, String name, int value, int useridodhod, int kategorijaidodhod, long userId) {
-        Id = id;
+        public Odhod(String name, int value, LocalDate date,Long useridodhod, Long kategorijaidodhod) {
         this.name = name;
         this.value = value;
-        Useridodhod = useridodhod;
-        Kategorijaidodhod = kategorijaidodhod;
-        this.userId = userId;
-    }
+        this.date = date;
+        this.kategorijaidodhod=kategorijaidodhod;
+        this.useridodhod=useridodhod;
 
-    public Odhod(String name, int value) {
-        this.name = name;
-        this.value = value;
+
     }
 
     public Odhod() {
+    }
+
+    public Long getUseridodhod() {
+        return useridodhod;
+    }
+
+    public void setUseridodhod(Long useridodhod) {
+        useridodhod = useridodhod;
+    }
+
+    public Long getKategorijaidodhod() {
+        return kategorijaidodhod;
+    }
+
+    public void setKategorijaidodhod(Long kategorijaidodhod) {
+        kategorijaidodhod = kategorijaidodhod;
     }
 
     public long getId() {
@@ -59,23 +67,6 @@ public class Odhod {
     public void setId(long id) {
         Id = id;
     }
-
-    public int getUseridodhod() {
-        return Useridodhod;
-    }
-
-    public void setUseridodhod(int useridodhod) {
-        this.Useridodhod = useridodhod;
-    }
-
-    public int getKategorijaidodhod() {
-        return Kategorijaidodhod;
-    }
-
-    public void setKategorijaidodhod(int kategorijaidodhod) {
-        Kategorijaidodhod = kategorijaidodhod;
-    }
-
 
     public String getName() {
         return name;
@@ -99,6 +90,9 @@ public class Odhod {
                 "Id=" + Id +
                 ", name='" + name + '\'' +
                 ", value=" + value +
+                ", Useridodhod=" + useridodhod +
+                ", Kategorijaidodhod=" + kategorijaidodhod +
+                ", date=" + date +
                 '}';
     }
 }

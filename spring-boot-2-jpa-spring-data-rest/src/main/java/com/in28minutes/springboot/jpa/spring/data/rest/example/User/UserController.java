@@ -1,9 +1,12 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.User;
 
-import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.Odhod;
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.Prihod;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,30 +49,21 @@ public class UserController {
     }
 
     @PostMapping(path= "/login")
-    public User Login(@RequestBody User user){
-        return userService.LoginUser(user);
-
+    public ResponseEntity<User> Login(@RequestBody User user){
+        try {
+            User authenticatedUser = userService.LoginUser(user);
+            return ResponseEntity.ok(authenticatedUser);
+        } catch (IllegalStateException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null); // or another appropriate status code
+        }
     }
     @PostMapping(path = "/register")
     public void Register(@RequestBody User user){
         userService.RegisterUser(user);
     }
 
-    @PostMapping(path = "/addprihod/{userId}/{prihodId}")
-    public void addPrihod(@PathVariable("userId") Long userId,@PathVariable("prihodId") Long prihodId){
-        userService.addPrihod(userId,prihodId);
-    }
 
-    @PostMapping(path = "/addodhod/{userId}/{odhodId}")
-    public void addOdhod(@PathVariable("userId") Long userId,@PathVariable("odhodId") Long odhodId) {
-        userService.addOdhod(userId, odhodId);
 
-    }
-
-    @GetMapping(path="/{userId}/odhods")
-    public List<Odhod> getOdhodsByUserId(@PathVariable("userId") Long userId) {
-        return userService.getOdhodsByUserId(userId);
-    }
 
 
 }

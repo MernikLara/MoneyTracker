@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState } from "react";
 
- const EspenditureContext = createContext({
+ const ExpenditureContext = createContext({
         Expenses: Number,
         updateExpenses: () => {}
  });
 
-export default IncomeContext
+export default ExpenditureContext

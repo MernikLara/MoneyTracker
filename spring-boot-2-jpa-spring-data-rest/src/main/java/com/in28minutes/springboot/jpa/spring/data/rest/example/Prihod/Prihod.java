@@ -1,7 +1,8 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.in28minutes.springboot.jpa.spring.data.rest.example.User.User;
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
@@ -13,31 +14,14 @@ public class Prihod {
             strategy = GenerationType.AUTO
     )
     private Long id;
-    private static String name;
+    private String name;
     private int value;
+    @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate date;
-    private int Useridprihod;
-    private int Kategorijaidprihod;
-
-    public int getUseridprihod() {
-        return Useridprihod;
-    }
-
-    public void setUseridprihod(int useridprihod) {
-        Useridprihod = useridprihod;
-    }
+    private Long useridprihod;
+    private Long kategorijaidprihod;
 
 
-    @Column(name = "userid")
-    private long userId;
-
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
 
     public Prihod(Long id, String name, int value, LocalDate date) {
         this.id = id;
@@ -46,13 +30,31 @@ public class Prihod {
         this.date = date;
     }
 
-    public Prihod(String name, int value, LocalDate date) {
+    public Prihod(String name, int value, LocalDate date, Long useridprihod, Long kategorijaidprihod ) {
         this.name = name;
         this.value = value;
         this.date = date;
+        this.useridprihod = useridprihod;
+        this.kategorijaidprihod = kategorijaidprihod;
     }
 
     public Prihod() {
+    }
+
+    public Long getUseridprihod() {
+        return useridprihod;
+    }
+
+    public void setUseridprihod(Long useridprihod) {
+        this.useridprihod = useridprihod;
+    }
+
+    public Long getKategorijaidprihod() {
+        return kategorijaidprihod;
+    }
+
+    public void setKategorijaidprihod(Long kategorijaidprihod) {
+        this.kategorijaidprihod = kategorijaidprihod;
     }
 
     public Long getId() {
@@ -63,7 +65,7 @@ public class Prihod {
         this.id = id;
     }
 
-    public static String getName() {
+    public String getName() {
         return name;
     }
 
@@ -83,9 +85,6 @@ public class Prihod {
         return date;
     }
 
-
-
-
     public void setDate(LocalDate date) {
         this.date = date;
     }
@@ -94,7 +93,6 @@ public class Prihod {
     public String toString() {
         return "Prihod{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", value=" + value +
                 ", date=" + date +
                 '}';

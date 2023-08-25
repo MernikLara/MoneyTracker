@@ -3,6 +3,8 @@ import TransactionsContext from "../contexts/TransactionsContext"
 import PropTypes from 'prop-types';
 import CategoryContext from "../contexts/CategoryContext";
 import "../Styles/TTable.css"
+import IncomeContext from "../contexts/IncomeContext";
+import MasterContext from "../contexts/MasterContext"
 
 const CategoryType = {
     income: 'income',
@@ -21,6 +23,7 @@ PropTypes.AlltransactionsTable = {
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         amount: PropTypes.number.isRequired, 
+        date: PropTypes.string.isRequired,
         CategoryID: PropTypes.number.isRequired
     }),
       Category: PropTypes.shape({
@@ -33,7 +36,7 @@ PropTypes.AlltransactionsTable = {
 
 
 export default function AlltransactionsTable(){
-    const { IncomeList, ExpenditureList, updateEList, updateIList } = useContext(TransactionsContext) 
+    const { IncomeList, ExpenditureList, updateEList, updateIList } = useContext(MasterContext) 
     console.log(IncomeList)
     console.log(ExpenditureList)
     const { CategoryList } = useContext(CategoryContext)
@@ -43,12 +46,14 @@ export default function AlltransactionsTable(){
     const [OCategoryName, setOCategoryName] = useState("");
     const [OCategoryNumber, setOCategoryNumber] = useState();
     const OCategory = useState();
+    const UserID = parseInt(sessionStorage.getItem("userID"))
+    const { addIncome } = useContext(IncomeContext);
 
     const findCategorybyID = (id) => {
         return CategoryList.find(Category => Category.id === id) || {};
     }
     return (
-        <div className="container mt-5"> 
+        <div className="container mt-5">
             <div className="row">
                 <div className="col-md-6">
                     <h4>Incomes</h4>
@@ -58,6 +63,7 @@ export default function AlltransactionsTable(){
                                 <th>Category</th>
                                 <th>Amount</th>
                                 <th>Description</th>
+                                <th>Date:</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -85,6 +91,7 @@ export default function AlltransactionsTable(){
                                 <th>Category</th>
                                 <th>Amount</th>
                                 <th>Description</th>
+                                <th>Date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -97,6 +104,7 @@ export default function AlltransactionsTable(){
                                         <td>{category && category.name ? category.name : "Failed to fetch category"}</td>
                                         <td>{Expenditure.value}</td>
                                         <td>{Expenditure.name}</td>
+                                        <td>{Expenditure.date}</td>
                                     </tr>
                                 );
                             })}

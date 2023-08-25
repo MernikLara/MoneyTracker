@@ -11,27 +11,34 @@ public class Racun {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
 
     private int balance;
 
-    private int Useridracun;
-    @ManyToOne
-    @JoinColumn(name = "Userid")
-    private User user;
+    private Long userid;
 
-    public Racun(Long id, String name, int balance) {
+    private int max;
+
+
+    public Racun(Long id, int balance, int max) {
         this.id = id;
-        this.name = name;
         this.balance = balance;
+        this.max = max;
     }
 
-    public Racun(String name, int balance) {
-        this.name = name;
+    public Racun(int balance, int max) {
         this.balance = balance;
+        this.max = max;
     }
 
     public Racun() {
+    }
+
+    public Long getUserId() {
+        return userid;
+    }
+
+    public void setUserId(Long userId) {
+        this.userid = userId;
     }
 
     public Long getId() {
@@ -42,12 +49,12 @@ public class Racun {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getMax() {
+        return max;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMax(int max) {
+        this.max = max;
     }
 
     public int getBalance() {
@@ -62,8 +69,9 @@ public class Racun {
     public String toString() {
         return "Racun{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", balance=" + balance +
+                ", userid=" + userid +
+                ", max=" + max +
                 '}';
     }
 }

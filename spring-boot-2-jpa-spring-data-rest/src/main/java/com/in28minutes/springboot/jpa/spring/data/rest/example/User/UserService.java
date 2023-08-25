@@ -1,6 +1,5 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.User;
 
-import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.Odhod;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.OdhodRepository;
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.PrihodRepository;
 import jakarta.transaction.Transactional;
@@ -83,33 +82,20 @@ public class UserService {
     }
 
 
+
+
     public User LoginUser(User user) {
         Optional<User> userOptional = userRepository.findUserByEmail(user.getEmail());
         if (userOptional.isPresent() && userOptional.get().getPassword().equals(user.getPassword())) {
+            System.out.println("dobrodosel"+ userOptional);
             return userOptional.get();
 
         }
         else{
             throw new IllegalStateException("Wrong email or password");
         }
-    }
 
-    public void addPrihod(Long userId, Long prihodId){
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalStateException("User s id: " + userId + " ne obstaja.") );
 
-        user.dodajPrihod(prihodRepository.findById(prihodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " + prihodId + " ne obstaja.") ));
-    }
-
-    public void addOdhod(Long userId, Long odhodId){
-        User user = userRepository.findById(userId).orElseThrow(() -> new IllegalStateException("User s id: " + userId + " ne obstaja.") );
-
-       user.dodajOdhod(odhodRepository.findById(odhodId).orElseThrow(() -> new IllegalStateException("Prihod s id: " +odhodId + " ne obstaja.")));
-    }
-
-    public List<Odhod> getOdhodsByUserId(Long userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalStateException("User with ID " + userId + " does not exist."));
-        return user.getOdhodList();
     }
 
 

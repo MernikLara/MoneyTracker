@@ -1,10 +1,12 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Racun;
 
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.Prihod;
+import com.in28minutes.springboot.jpa.spring.data.rest.example.User.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path="api/v1/racun")
@@ -34,14 +36,23 @@ public class RacunController {
         this.racunService.deleteRacun(racunId);
     }
 
-    @PutMapping(path={"/name/{racunId}"})
-    public void updateRacunime(@PathVariable("racunId") Long racunId, @RequestParam(required = false) String name){
-        this.racunService.updateRacunime(racunId,name);
-    }
-
 
     @PutMapping(path={"/balance/{racunId}"})
     public void updateRacunstanje(@PathVariable("racunId") Long racunId, @RequestParam(required = false) int balance){
         this.racunService.updateRacunstanje(racunId,balance);
     }
+
+
+    @GetMapping( path = {"/userid/{userId}"})
+    public Optional<Racun> getbyId(@PathVariable("userId") Long Userid) {
+        return this.racunService.getidUser(Userid);
+    }
+
+    @GetMapping(path={"/max/{racunId}"})
+    public void getBalance(@PathVariable("racunId") Long racunId){
+        this.racunService.getmax(racunId);
+    }
+
+
+
 }

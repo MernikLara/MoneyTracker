@@ -2,6 +2,7 @@ package com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod;
 
 
 import com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod.Prihod;
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Racun.Racun;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,11 +51,9 @@ public class OdhodController {
         this.odhodService.updateOdhod(odhodId, name, value);
     }
 
-
-    @GetMapping(path="/getbyuserid/{userId}")
-    public List<Odhod> getUserId(@PathVariable("userId") Long UserId){
-      return this.odhodService.getIdUser(UserId);
+    @GetMapping( path = {"userid/{userId}"})
+    public List<Odhod> getbyuserId(@PathVariable("userId") Long useridodhod) {
+        return this.odhodService.getidUser(useridodhod);
     }
-
 
 }

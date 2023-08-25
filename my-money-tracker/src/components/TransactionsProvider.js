@@ -2,6 +2,7 @@ import TransactionsContext from '../contexts/TransactionsContext'
 import React, { useState, useEffect, useContext, useCallback } from "react"
 import { LoginContext } from './LoginProvider';
 import axios from 'axios';
+import moment from 'moment';
 
 function TransactionsProvider({ children }) {
     const [IncomeList, setIncomeList] = useState([]);
@@ -9,11 +10,12 @@ function TransactionsProvider({ children }) {
     const [Error, setError] = useState(null)
     const UserID = parseInt(sessionStorage.getItem("userID"))
     const [IncomeID, setIncomeID] = useState()
+    const formattedDate = moment().format('YYYY-MM-DD');
 
     useEffect(() => {
         const getIncomes = async () => {
             try {
-                const res = await fetch(`http://localhost:8080/api/v1/prihod/getbyuserid/${UserID}`)
+                const res = await fetch(`http://localhost:8080/api/v1/prihod/userid/${UserID}`)
                 if (!res.ok) {
                     throw new Error('could not fetch data')
                 }
@@ -25,11 +27,11 @@ function TransactionsProvider({ children }) {
             }
         };
         getIncomes();
-        }, [])
+        }, [UserID])
     useEffect(() => {
         const getExpenditures = async () =>{
             	try{
-                    const response = await fetch(`http://localhost:8080/api/v1/odhod/getbyuserid/${UserID}`)
+                    const response = await fetch(`http://localhost:8080/api/v1/odhod/userid/${UserID}`)
                     if (!response.ok) {
                         throw new Error('could not fetch data')
                     }
@@ -42,26 +44,29 @@ function TransactionsProvider({ children }) {
                 }
             };
             getExpenditures();
-        }, [])
-        const addIncome = useCallback(async (name, kategorijaid, date, value) => {
+        }, [UserID])
+        const addIncome = useCallback(async (name, kategorijaid, value) => {
             console.log("function called")
             const Income = {
-                name: name,
+                date: formattedDate,
                 kategorijaidprihod: kategorijaid,
+                name: name,
                 useridprihod: UserID,
-                date: date,
                 value: value,
-                userid: UserID
             };
+            console.log(kategorijaid, Income.kategorijaidprihod)
         
             try {
-                const response = await axios.post('http://localhost:8080/api/v1/prihod', Income);
+                const response = await axios.post('http://localhost:8080/api/v1/prihod', Income ,{  headers: {
+                    'Content-Type': 'application/json'
+                }});
                 console.log(response.data);
         
                 if (response.status === 200) {
                     console.log('Income added Successfully');
-                    const newIncomeID = response.data.id;
-                    const res = await axios.post(`/addprihod/${kategorijaid}/${newIncomeID}`, { kategorijaid, id: newIncomeID });
+                    const newIncomeID = response.data;
+                    console.log(response.data)
+                    const res = await axios.post(`http://localhost:8080/api/v1/kategorija/addprihod/${Income.kategorijaidprihod}/${newIncomeID}`, { kategorijaid: Income.kategorijaidprihod, id: newIncomeID });
                     
                     console.log(res.data);
                     
@@ -73,22 +78,23 @@ function TransactionsProvider({ children }) {
                 console.error('Error adding Income', err);
             }
         }, [UserID]);
-            const addExpenditure = useCallback(async( name, kategorijaid, useridodhod, value) =>{
+            const addExpenditure = useCallback(async( name, kategorijaid, value) =>{
                 const Expenditure = {
                     name: name,
-                    kategorijaiprihod: kategorijaid,
-                    useridodhod: useridodhod,
+                    kategorijaidodhod: kategorijaid,
+                    date: formattedDate,
+                    useridodhod: UserID,
                     value: value,
-                    userid: UserID
                 }
+                console.log(Expenditure.kategorijaidodhod)
                 try {
-                    const response = await axios.post('http://localhost:8080/api/v1/prihod', Expenditure);
+                    const response = await axios.post('http://localhost:8080/api/v1/odhod', Expenditure);
                     console.log(response.data);
             
                     if (response.status === 200) {
                         console.log('Expenditure added Successfully');
-                        const newExpenditureID = response.data.id;
-                        const res = await axios.post(`/addprihod/${kategorijaid}/${newExpenditureID}`, { kategorijaid, id: newExpenditureID });
+                        const newExpenditureID = response.data.id
+                        const res = await axios.post(`/addprihod/${Expenditure.kategorijaidodhod}/${Expenditure.id}`, { kategorijaid: Expenditure.kategorijaidodhod, id: newExpenditureID });
                         
                         console.log(res.data);
                         

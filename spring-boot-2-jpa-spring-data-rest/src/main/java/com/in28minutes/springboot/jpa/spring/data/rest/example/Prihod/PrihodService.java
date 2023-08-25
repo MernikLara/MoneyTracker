@@ -1,7 +1,9 @@
 package com.in28minutes.springboot.jpa.spring.data.rest.example.Prihod;
 
+import com.in28minutes.springboot.jpa.spring.data.rest.example.Odhod.Odhod;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,7 +15,6 @@ import java.util.Optional;
 @Service
 public class PrihodService {
     private final PrihodRepository prihodRepository;
-
 
     @Autowired
     public PrihodService(PrihodRepository prihodRepository) {
@@ -33,9 +34,9 @@ public class PrihodService {
     }
 
 
-    public void addPrihod(Prihod prihod) {
+    public Prihod addPrihod(Prihod prihod) {
 
-            this.prihodRepository.save(prihod);
+          return this.prihodRepository.save(prihod);
 
     }
     public void deletePrihod(Long prihodId) {
@@ -64,11 +65,9 @@ public class PrihodService {
 
     }
 
-    public List<Prihod> getIdUser(Long userId) {
+    public List<Prihod> getidUser(Long useridprihod) {
 
-        return prihodRepository.findPrihodsByUserId(userId);
+        return prihodRepository.findPrihodsByUseridprihod(useridprihod);
     }
-
-
 
 }
